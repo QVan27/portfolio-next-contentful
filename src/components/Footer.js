@@ -41,6 +41,21 @@ const Container = styled.footer`
     font-size: 0.875rem;
     line-height: normal;
     letter-spacing: 0.035rem;
+    overflow: hidden;
+    position: relative;
+
+    span {
+      &.hide {
+        display: inline-flex;
+        position: absolute;
+        inset: 0;
+      }
+
+      &.word {
+        display: inline-flex;
+        align-items: center;
+      }
+    }
   }
 `;
 
@@ -48,11 +63,15 @@ export default function Footer() {
   const socials = useRef(null);
   const charsRefs = useRef([]);
 
+  const contact = useRef(null);
+  const contactWordRef = useRef([]);
+  const contactWordHideRef = useRef([]);
+
   useEffect(() => {
     if (socials && charsRefs.current.length === 0) {
       import('splitting').then(({ default: Splitting }) => {
         Splitting()
-        
+
         const links = socials.current.querySelectorAll('a')
 
         links.forEach((link) => {
@@ -64,8 +83,8 @@ export default function Footer() {
             gsap.to(chars, {
               duration: 1,
               color: 'var(--main)',
-              stagger: 0.05,
-              ease: 'sine.out',
+              stagger: 0.04,
+              ease: 'power4.out',
             })
           })
 
@@ -73,9 +92,51 @@ export default function Footer() {
             gsap.to(chars, {
               duration: 1,
               color: 'var(--paragraph)',
-              stagger: 0.05,
-              ease: 'sine.out',
+              stagger: 0.04,
+              ease: 'power4.out',
             })
+          })
+        })
+
+        const word = contact.current.querySelectorAll('.show .word')
+        const wordHide = contact.current.querySelectorAll('.hide .word')
+
+        contactWordRef.current.push(word)
+        contactWordHideRef.current.push(wordHide)
+
+        gsap.set(wordHide, { yPercent: 100, opacity: 0 })
+
+        contact.current.addEventListener('mouseenter', () => {
+          gsap.to(word, {
+            duration: 0.5,
+            yPercent: -100,
+            opacity: 0,
+            ease: 'power4.out',
+          })
+
+          gsap.to(wordHide, {
+            duration: 0.5,
+            color: 'var(--highlight)',
+            yPercent: 0,
+            opacity: 1,
+            ease: 'power4.out',
+          })
+        })
+
+        contact.current.addEventListener('mouseleave', () => {
+          gsap.to(word, {
+            duration: 0.5,
+            yPercent: 0,
+            opacity: 1,
+            ease: 'power4.out',
+          })
+
+          gsap.to(wordHide, {
+            duration: 0.5,
+            yPercent: 100,
+            color: 'var(--main)',
+            opacity: 0,
+            ease: 'power4.out',
           })
         })
       })
@@ -83,7 +144,7 @@ export default function Footer() {
   }, [])
 
   return (
-    <Container>
+    <Container id='contact'>
       <div className='grid grid-cols-12 xl:grid-cols-24 gap-x-2.5'>
         <div className='col-start-2 col-end-12 xl:col-start-3 xl:col-end-23 flex flex-col gap-y-10'>
           <span className={`${anton.className} title uppercase`}>connect</span>
@@ -92,7 +153,10 @@ export default function Footer() {
               <Link data-splitting='chars' aria-label='LinkedIn' href='#'>LinkedIn</Link>
               <Link data-splitting='chars' aria-label='Github' href='#'>Github</Link>
             </div>
-              <Link className={`${nunitoSans.className} email`} aria-label='qvannarathdev@gmail.com' href='mailto:qvannarathdev@gmail.com'>qvannarathdev@gmail.com</Link>
+            <Link ref={contact} className={`${nunitoSans.className} email`} aria-label='qvannarathdev@gmail.com' href='mailto:qvannarathdev@gmail.com'>
+              <span className='show' data-splitting='chars'>qvannarathdev@gmail.com</span>
+              <span className='hide' data-splitting='chars'>qvannarathdev@gmail.com</span>
+            </Link>
           </div>
         </div>
       </div>

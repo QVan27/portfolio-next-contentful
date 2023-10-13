@@ -11,6 +11,7 @@
   "dependencies": {
     "@contentful/rich-text-react-renderer": "^15.18.0",
     "@contentful/rich-text-types": "^16.3.0",
+    "@studio-freight/react-lenis": "^0.0.36",
     "contentful": "^10.6.1",
     "gsap": "^3.12.2",
     "next": "13.5.4",
