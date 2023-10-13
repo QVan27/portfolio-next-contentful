@@ -144,7 +144,7 @@ export default function Footer() {
   }, [])
 
   return (
-    <Container>
+    <Container id='contact'>
       <div className='grid grid-cols-12 xl:grid-cols-24 gap-x-2.5'>
         <div className='col-start-2 col-end-12 xl:col-start-3 xl:col-end-23 flex flex-col gap-y-10'>
           <span className={`${anton.className} title uppercase`}>connect</span>
