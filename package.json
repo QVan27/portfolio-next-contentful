@@ -12,13 +12,15 @@
     "@contentful/rich-text-react-renderer": "^15.18.0",
     "@contentful/rich-text-types": "^16.3.0",
     "@studio-freight/react-lenis": "^0.0.36",
-    "contentful": "^10.6.1",
+    "contentful": "^10.6.3",
     "gsap": "^3.12.2",
+    "hover-effect": "^1.2.1",
     "next": "13.5.4",
     "react": "^18",
     "react-dom": "^18",
     "splitting": "^1.0.6",
-    "styled-components": "^6.0.8"
+    "styled-components": "^6.0.8",
+    "three": "^0.157.0"
   },
   "devDependencies": {
     "autoprefixer": "^10",

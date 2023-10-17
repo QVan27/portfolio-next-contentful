@@ -26,9 +26,9 @@ const Cursor = styled.div`
     transition: width 0.3s ease-in-out, height 0.3s ease-in-out, opacity 0.3s ease-in-out;
   }
 
-  ${({ flareSize }) => css`
-    width: ${flareSize}px;
-    height: ${flareSize}px;
+  ${({ $flareSize }) => css`
+    width: ${$flareSize}px;
+    height: ${$flareSize}px;
   `}
 `;
 
@@ -66,7 +66,7 @@ function FlareCursor() {
 
   const flareSize = isPointer ? 0 : 30
 
-  return <Cursor flareSize={flareSize} ref={cursorRef} className={`flare ${isPointer ? 'pointer' : ''}`} />
+  return <Cursor $flareSize={flareSize} ref={cursorRef} className={`flare ${isPointer ? 'pointer' : ''}`} />
 }
 
 export default FlareCursor

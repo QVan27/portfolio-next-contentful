@@ -10,6 +10,28 @@
   --secondary: rgba(114, 117, 126, 1);
   --stroke: rgba(1, 1, 1, 1);
   --highlight: rgba(255, 99, 0, 1);
+
+  --z-header: 100;
+
+  --font__titleBorder: 3.75rem;
+}
+
+@media screen and (min-width: 768px) {
+  :root {
+    --font__titleBorder: 8rem;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  :root {
+    --font__titleBorder: 10rem;
+  }
+}
+
+@media screen and (min-width: 1536px) {
+  :root {
+    --font__titleBorder: 12rem;
+  }
 }
 
 @media (prefers-color-scheme: dark) {

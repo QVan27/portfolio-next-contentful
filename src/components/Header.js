@@ -18,6 +18,12 @@ const nextImageLoader = ({ src, width, quality }) => {
 }
 
 const Container = styled.header`
+  position: absolute;
+  z-index: var(--z-header);
+  top: 0;
+  left: 0;
+  right: 0;
+
   nav {
     ul {
       display: flex;
