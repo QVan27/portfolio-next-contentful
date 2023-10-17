@@ -1,17 +1,17 @@
 import React, { useRef, useEffect } from 'react'
 import styled from 'styled-components'
 import { Anton, Maitree } from 'next/font/google'
-import Texture from "@/assets/images/distortions/texture.jpeg"
+import Texture from '@/assets/images/distortions/texture.jpeg'
 import hoverEffect from 'hover-effect';
 import RichText from '@/components/RichText'
 
 const anton = Anton({
-  weight: ["400"],
+  weight: ['400'],
   subsets: ['latin']
 })
 
 const maitree = Maitree({
-  weight: ["200"],
+  weight: ['200'],
   subsets: ['latin']
 })
 
@@ -56,7 +56,7 @@ const Container = styled.section`
     div {
       width: min(46.31rem, 100%);
 
-      @media screen and (min-width: 1536px) { width: min(58.31rem, 100%); }
+      @media screen and (min-width: 1280px) { width: min(55.31rem, 100%); } 
 
       p {
         font-size: 1.5rem;
@@ -90,7 +90,8 @@ export default function Banner({ data }) {
       image1: imageDistortion1,
       image2: imageDistortion2,
       displacementImage: Texture.src,
-      imagesRatio: 280 / 200
+      imagesRatio: 1 / 0.8,
+      easing: 'power4.out'
     })
   }, [])
 
