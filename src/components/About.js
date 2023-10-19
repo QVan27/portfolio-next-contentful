@@ -34,13 +34,6 @@ const Container = styled.section`
 
   .content {
     margin: 9.375rem 0 6.25rem 0rem;
-
-    h2 {
-      color: var(--main);
-      font-size: var(--font__title);
-      line-height: normal;
-      letter-spacing: 0.075rem;
-    }
   
     &__text {
       color: var(--paragraph);
@@ -79,7 +72,7 @@ export default function About({ data }) {
           </div>
         </div>
         <div className='content col-start-2 col-end-12 xl:col-start-12 xl:col-end-23 flex flex-col gap-y-5'>
-          <h2 className={`${anton.className}`}>{data.title}</h2>
+          <h2 className={`${anton.className} small-title`}>{data.title}</h2>
           <div className={`${nunitoSans.className} content__text`}>
             <RichText content={data.text} />
           </div>
