@@ -14,6 +14,7 @@
   --z-header: 100;
 
   --font__titleBorder: 3.75rem;
+  --font__titleStack: 3.5rem;
   --font__title: 0.75rem;
   --font__text: 1.5rem;
 }
@@ -21,6 +22,12 @@
 @media screen and (min-width: 768px) {
   :root {
     --font__titleBorder: 8rem;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  :root {
+    --font__titleStack: 6rem;
   }
 }
 
@@ -53,4 +60,13 @@ body {
   background-color: var(--primary-background);
 }
 
-main { min-height: 100vh; }
+main {
+  min-height: 100vh;
+}
+
+.small-title {
+  color: var(--main);
+  font-size: var(--font__title);
+  line-height: normal;
+  letter-spacing: 0.075rem;
+}
