@@ -22,8 +22,7 @@ const Container = styled.section`
     position: absolute;
     z-index: 1;
     inset: 0;
-    background-blend-mode: lighten;
-    mix-blend-mode: difference;
+    mix-blend-mode: color-dodge;
     overflow: hidden;
 
     div {
