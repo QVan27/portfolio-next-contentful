@@ -14,6 +14,8 @@
   --z-header: 100;
 
   --font__titleBorder: 3.75rem;
+  --font__title: 0.75rem;
+  --font__text: 1.5rem;
 }
 
 @media screen and (min-width: 768px) {
