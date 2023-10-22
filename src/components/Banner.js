@@ -55,7 +55,9 @@ const Container = styled.section`
     div {
       width: min(46.31rem, 100%);
 
-      @media screen and (min-width: 1280px) { width: min(55.31rem, 100%); } 
+      @media screen and (min-width: 1280px) { width: min(50.31rem, 100%); }
+
+      @media screen and (min-width: 1536px) { width: min(55.31rem, 100%); } 
 
       p {
         font-size: 1.5rem;

@@ -12,6 +12,7 @@
   --highlight: rgba(255, 99, 0, 1);
 
   --z-header: 100;
+  --z-loader: 150;
 
   --font__titleBorder: 3.75rem;
   --font__titleStack: 3.5rem;
