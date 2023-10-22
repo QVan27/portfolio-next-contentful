@@ -4,6 +4,7 @@ import { Lenis, useLenis } from '@studio-freight/react-lenis'
 import Grid from '@/components/Grid';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import Loader from '@/components/Loader';
 
 const Wrapper = ({ children }) => {
   // more information about lenis with react https://codesandbox.io/p/sandbox/old-snowflake-q3x4x5?file=%2Fapp%2Flayout.tsx%3A11%2C3
@@ -25,6 +26,7 @@ const Wrapper = ({ children }) => {
   return (
     <>
       <Grid />
+      <Loader />
       <Lenis root>
         <Header />
         <main>
