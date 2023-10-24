@@ -70,4 +70,5 @@ main {
   font-size: var(--font__title);
   line-height: normal;
   letter-spacing: 0.075rem;
+  text-transform: uppercase;
 }
