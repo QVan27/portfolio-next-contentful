@@ -119,8 +119,8 @@ export default function Work({ data, items }) {
             gsap.to(chars, {
               duration: 0.5,
               color: 'var(--main)',
-              stagger: 0.04,
-              ease: 'power4.inOut',
+              stagger: 0.03,
+              ease: 'power4.out',
             })
           })
 
@@ -128,8 +128,8 @@ export default function Work({ data, items }) {
             gsap.to(chars, {
               duration: 0.5,
               color: 'var(--paragraph)',
-              stagger: 0.04,
-              ease: 'power4.inOut',
+              stagger: 0.03,
+              ease: 'power4.out',
             })
           })
         })
