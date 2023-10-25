@@ -6,6 +6,7 @@ import ContentfulImage from '@/components/ContentfulImage'
 import 'splitting/dist/splitting.css'
 import 'splitting/dist/splitting-cells.css'
 import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/dist/ScrollTrigger'
 
 const anton = Anton({
   weight: ['400'],
@@ -29,7 +30,6 @@ const List = styled.ul`
     position: relative;
     flex-direction: column;
     padding: 1.875rem 0.9375rem;
-    overflow: hidden;
 
     @media screen and (min-width: 1024px) {
       flex-direction: row;
@@ -37,35 +37,44 @@ const List = styled.ul`
       justify-content: space-between;
     }
 
-    @media screen and (hover: hover) {
-      &:before {
-        content: '';
-        position: absolute;
-        z-index: 2;
-        inset: 0;
-        background: linear-gradient(
-          0deg,
-          rgba(22, 22, 26, 0.75) 0%,
-          rgba(22, 22, 26, 0.75) 100%
-        );
-      }
-
-      &:hover {
-        img { opacity: 1; }
-
-        p { color: var(--highlight); }
-      }
-    }
-
-    img {
+    &__img {
       display: none;
 
       @media screen and (hover: hover) {
         display: block;
         position: absolute;
         inset: 0;
-        opacity: 0;
-        transition: opacity 0.5s ease-out;
+        z-index: 3;
+        overflow: hidden;
+        pointer-events: none;
+
+        &--reveal {
+          visibility: hidden;
+          position: relative;
+          width: 100%;
+          height: 100%;
+          overflow: hidden;
+
+          &:before {
+            content: '';
+            position: absolute;
+            z-index: 1;
+            inset: 0;
+            background: linear-gradient(
+              0deg,
+              rgba(22, 22, 26, 0.75) 0%,
+              rgba(22, 22, 26, 0.75) 100%
+            );
+          }
+
+          img {
+            position: relative;
+            height: 100%;
+            width: 100%;
+            object-fit: cover;
+            transform-origin: left;
+          }
+        }
       }
     }
 
@@ -101,50 +110,154 @@ const List = styled.ul`
 
 export default function Work({ data, items }) {
   const listRef = useRef(null)
-  const charsRefs = useRef([]);
+  const containerRef = useRef(null)
+  const charsRefs = useRef([])
+  const charsTitleRefs = useRef([])
 
   useEffect(() => {
+    gsap.registerPlugin(ScrollTrigger)
     if (listRef && charsRefs.current.length === 0) {
       import('splitting').then(({ default: Splitting }) => {
         Splitting()
 
         const li = listRef.current.querySelectorAll('li')
+        const lines = listRef.current.querySelectorAll('.line')
+        const chars = containerRef.current.querySelectorAll('h2 .char')
+
+        charsTitleRefs.current.push(chars)
 
         li.forEach((item) => {
           const chars = item.querySelectorAll('.char')
+          const text = item.querySelector('p')
+          const reveal = item.querySelector('.tech__img--reveal')
+          const image = reveal.querySelector('img')
+          const tl = gsap.timeline({ paused: true })
 
           charsRefs.current.push(chars)
 
           item.addEventListener('mouseenter', () => {
-            gsap.to(chars, {
-              duration: 0.5,
-              color: 'var(--main)',
-              stagger: 0.03,
-              ease: 'power4.out',
-            })
+            tl.clear()
+            tl.set(reveal, { autoAlpha: 1 })
+            tl.fromTo(
+              item,
+              {
+                zIndex: 0,
+              },
+              {
+                zIndex: 100,
+              }
+            )
+            tl.fromTo(
+              chars,
+              {
+                color: 'var(--paragraph)',
+              },
+              {
+                color: 'var(--main)',
+                duration: 0.3,
+                stagger: 0.03,
+                ease: 'power4.out',
+              }
+            )
+            tl.fromTo(
+              reveal,
+              {
+                xPercent: -100,
+              },
+              {
+                xPercent: 0,
+                duration: 1.5,
+                ease: 'power4.out',
+              },
+              0.3
+            )
+            tl.fromTo(
+              image,
+              {
+                xPercent: 100,
+                scale: 1.3,
+              },
+              {
+                xPercent: 0,
+                scale: 1,
+                duration: 1.5,
+                delay: -1.5,
+                ease: 'power4.out',
+              }
+            )
+            tl.fromTo(
+              text,
+              {
+                color: 'var(--paragraph)',
+              },
+              {
+                color: 'var(--highlight)',
+                duration: 0.3,
+                ease: 'sine.out',
+              },
+              0.5
+            )
+            tl.play()
           })
 
           item.addEventListener('mouseleave', () => {
-            gsap.to(chars, {
-              duration: 0.5,
-              color: 'var(--paragraph)',
-              stagger: 0.03,
-              ease: 'power4.out',
-            })
+            tl.reverse()
           })
         })
+
+        lines.forEach((line) => {
+          gsap.set(line, { width: 0 })
+          gsap.to(line, {
+            scrollTrigger: {
+              trigger: line,
+              start: 'top bottom',
+              end: 'bottom 70%',
+              scrub: true,
+            },
+            width: '100%',
+          })
+        })
+
+        gsap.fromTo(
+          charsTitleRefs.current,
+          {
+            y: 100,
+            opacity: 0,
+          },
+          {
+            y: 0,
+            opacity: 1,
+            stagger: 0.05,
+            duration: 2,
+            ease: 'power4.out',
+            scrollTrigger: {
+              trigger: charsTitleRefs.current,
+              start: 'top 80%',
+              end: 'top center',
+              scrub: true,
+            },
+          }
+        )
       })
     }
   }, [])
 
   return (
-    <Container>
+    <Container ref={containerRef}>
       <div className='grid grid-cols-12 xl:grid-cols-24 gap-x-2.5'>
         <div className='col-start-2 col-end-5 xl:col-start-5 xl:col-end-10'>
-          <h2 className={`${anton.className} small-title`}>{data.title}</h2>
+          <h2
+            data-splitting='chars'
+            className={`${anton.className} small-title`}
+          >
+            {data.title}
+          </h2>
         </div>
       </div>
-      <List ref={listRef} className='grid grid-cols-12 xl:grid-cols-24 gap-x-2.5'>
+      <List
+        ref={listRef}
+        className='grid grid-cols-12 xl:grid-cols-24 gap-x-2.5'
+      >
         {items.map((item, i) => (
           <li
             key={i}
@@ -156,14 +269,22 @@ export default function Work({ data, items }) {
               href={item.fields.link}
             >
               <div className='tech'>
-                <ContentfulImage
-                  src={item.fields.image.fields.file.url}
-                  width={item.fields.image.fields.file.details.image.width}
-                  height={item.fields.image.fields.file.details.image.height}
-                  quality='100'
-                  alt={item.fields.image.title}
-                />
-                <h3 data-splitting='chars' className={`${maitree.className}`}>{item.fields.title}</h3>
+                <div className='tech__img'>
+                  <div className='tech__img--reveal'>
+                    <ContentfulImage
+                      src={item.fields.image.fields.file.url}
+                      width={item.fields.image.fields.file.details.image.width}
+                      height={
+                        item.fields.image.fields.file.details.image.height
+                      }
+                      quality='100'
+                      alt={item.fields.image.title}
+                    />
+                  </div>
+                </div>
+                <h3 data-splitting='chars' className={`${maitree.className}`}>
+                  {item.fields.title}
+                </h3>
                 <p className={`${anton.className}`}>{item.fields.stack}</p>
               </div>
             </Link>
