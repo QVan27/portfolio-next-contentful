@@ -5,6 +5,9 @@ import Grid from '@/components/Grid';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import Loader from '@/components/Loader';
+import Head from 'next/head';
+import Metadata from '@/components/Metadata';
+
 
 const Wrapper = ({ children }) => {
   // more information about lenis with react https://codesandbox.io/p/sandbox/old-snowflake-q3x4x5?file=%2Fapp%2Flayout.tsx%3A11%2C3
@@ -25,6 +28,9 @@ const Wrapper = ({ children }) => {
 
   return (
     <>
+      <Head>
+        <Metadata />
+      </Head>
       <Grid />
       <Loader />
       <Lenis root>
