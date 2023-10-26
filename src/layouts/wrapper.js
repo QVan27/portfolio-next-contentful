@@ -12,9 +12,7 @@ const Wrapper = ({ children }) => {
       <Loader />
       <Header />
       <main>
-        <div>
-          {children}
-        </div>
+        {children}
       </main>
       <Footer />
     </>
