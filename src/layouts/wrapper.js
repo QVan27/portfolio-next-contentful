@@ -5,8 +5,6 @@ import Grid from '@/components/Grid';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import Loader from '@/components/Loader';
-import Head from 'next/head';
-import Metadata from '@/components/Metadata';
 
 
 const Wrapper = ({ children }) => {
@@ -28,9 +26,6 @@ const Wrapper = ({ children }) => {
 
   return (
     <>
-      <Head>
-        <Metadata />
-      </Head>
       <Grid />
       <Loader />
       <Lenis root>

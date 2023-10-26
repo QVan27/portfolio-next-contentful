@@ -3,10 +3,12 @@ import Banner from '@/components/Banner'
 import About from '@/components/About'
 import Stack from '@/components/Stack'
 import Work from '@/components/Work'
+import HeadData from '@/components/HeadData';
 
 export default function Home({ dataBanner, dataAbout, dataStack, dataWork, dataWebsite }) {
   return (
     <>
+      <HeadData />
       <Banner data={dataBanner[0].fields} />
       <Stack data={dataStack[0].fields} />
       <About data={dataAbout[0].fields} />
