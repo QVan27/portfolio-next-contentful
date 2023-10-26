@@ -243,7 +243,7 @@ export default function Work({ data, items }) {
   }, [])
 
   return (
-    <Container ref={containerRef}>
+    <Container id='skills' ref={containerRef}>
       <div className='grid grid-cols-12 xl:grid-cols-24 gap-x-2.5'>
         <div className='col-start-2 col-end-5 xl:col-start-5 xl:col-end-10'>
           <h2

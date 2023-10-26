@@ -84,7 +84,7 @@ const List = styled.ul`
 
 export default function Stack({ data }) {
   return (
-    <Container>
+    <Container id='about'>
       <div className='grid grid-cols-12 xl:grid-cols-24 gap-x-2.5'>
         <div className='col-start-2 col-end-5 xl:col-start-5 xl:col-end-10'>
           <h2 className={`${anton.className} small-title`}>{data.title}</h2>
