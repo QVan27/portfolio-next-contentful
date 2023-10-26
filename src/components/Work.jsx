@@ -258,39 +258,46 @@ export default function Work({ data, items }) {
         ref={listRef}
         className='grid grid-cols-12 xl:grid-cols-24 gap-x-2.5'
       >
-        {items.map((item, i) => (
-          <li
-            key={i}
-            className='col-start-2 col-end-12 xl:col-start-5 xl:col-end-21'
-          >
-            <Link
-              aria-label={item.fields.title}
-              target='_blank'
-              href={item.fields.link}
+        {items.map((item, i) => {
+          const fields = item.fields
+          const image = fields.image.fields
+
+          return (
+            <li
+              key={i}
+              className='col-start-2 col-end-12 xl:col-start-5 xl:col-end-21'
             >
-              <div className='tech'>
-                <div className='tech__img'>
-                  <div className='tech__img--reveal'>
-                    <ContentfulImage
-                      src={item.fields.image.fields.file.url}
-                      width={item.fields.image.fields.file.details.image.width}
-                      height={
-                        item.fields.image.fields.file.details.image.height
-                      }
-                      quality='100'
-                      alt={item.fields.image.title}
-                    />
+              <Link
+                aria-label={fields.title}
+                target='_blank'
+                href={fields.link}
+              >
+                <div className='tech'>
+                  <div className='tech__img'>
+                    <div className='tech__img--reveal'>
+                      <ContentfulImage
+                        src={image.file.url}
+                        width={
+                          image.file.details.image.width
+                        }
+                        height={
+                          image.file.details.image.height
+                        }
+                        quality='100'
+                        alt={image.title}
+                      />
+                    </div>
                   </div>
+                  <h3 data-splitting='chars' className={`${maitree.className}`}>
+                    {fields.title}
+                  </h3>
+                  <p className={`${anton.className}`}>{fields.stack}</p>
                 </div>
-                <h3 data-splitting='chars' className={`${maitree.className}`}>
-                  {item.fields.title}
-                </h3>
-                <p className={`${anton.className}`}>{item.fields.stack}</p>
-              </div>
-            </Link>
-            <div className='line'></div>
-          </li>
-        ))}
+              </Link>
+              <div className='line'></div>
+            </li>
+          )
+        })}
       </List>
     </Container>
   )
