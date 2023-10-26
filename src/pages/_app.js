@@ -2,12 +2,15 @@ import "@/styles/reset.css";
 import "@/styles/globals.css";
 import Wrapper from "@/layouts/wrapper";
 import FlareCursor from '@/components/FlareCursor';
+import Scroll from '@/templates/Scroll';
 
 export default function App({ Component, pageProps }) {
   return (
-    <Wrapper>
-      <FlareCursor />
-      <Component {...pageProps} />
-    </Wrapper>
+    <Scroll>
+      <Wrapper>
+        <FlareCursor />
+        <Component {...pageProps} />
+      </Wrapper>
+    </Scroll>
   );
 }

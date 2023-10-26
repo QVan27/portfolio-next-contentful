@@ -212,7 +212,8 @@ export default function Work({ data, items }) {
               trigger: line,
               start: 'top bottom',
               end: 'bottom 70%',
-              scrub: true,
+              scrub: 3,
+              once: true,
             },
             width: '100%',
           })
@@ -234,7 +235,8 @@ export default function Work({ data, items }) {
               trigger: charsTitleRefs.current,
               start: 'top 80%',
               end: 'top center',
-              scrub: true,
+              scrub: 3,
+              once: true,
             },
           }
         )

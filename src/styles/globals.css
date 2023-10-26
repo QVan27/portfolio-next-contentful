@@ -65,6 +65,18 @@ main {
   min-height: 100vh;
 }
 
+.lenis.lenis-smooth {
+  scroll-behavior: auto;
+}
+
+html.lenis {
+  height: auto;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
 .small-title {
   color: var(--main);
   font-size: var(--font__title);
