@@ -137,7 +137,7 @@ export default function Footer() {
       <div className='grid grid-cols-12 xl:grid-cols-24 gap-x-2.5'>
         <div className='col-start-2 col-end-12 xl:col-start-3 xl:col-end-23 flex flex-col gap-y-10'>
           <SmallTitle title='connect' />
-          <div className='flex flex-wrap justify-between items-end'>
+          <div className='flex flex-col sm:flex-row sm:flex-wrap sm:justify-between sm:items-end'>
             <div ref={socials} className={`${maitree.className} flex flex-col items-start socials`}>
               <Link data-splitting='chars' aria-label='LinkedIn' href='#'>LinkedIn</Link>
               <Link data-splitting='chars' aria-label='Github' href='#'>Github</Link>
