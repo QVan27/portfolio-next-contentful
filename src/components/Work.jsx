@@ -210,7 +210,6 @@ export default function Work({ data, items }) {
               start: 'top bottom',
               end: 'bottom 70%',
               scrub: 3,
-              once: true,
             },
             width: '100%',
           })
