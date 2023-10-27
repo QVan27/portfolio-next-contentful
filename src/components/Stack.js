@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { Anton, Nunito_Sans } from 'next/font/google'
+import SmallTitle from './SmallTitle'
 
 const anton = Anton({
   weight: ['400'],
@@ -87,7 +88,7 @@ export default function Stack({ data }) {
     <Container id='about'>
       <div className='grid grid-cols-12 xl:grid-cols-24 gap-x-2.5'>
         <div className='col-start-2 col-end-5 xl:col-start-5 xl:col-end-10'>
-          <h2 className={`${anton.className} small-title`}>{data.title}</h2>
+          <SmallTitle title={data.title} />
         </div>
       </div>
       <List>

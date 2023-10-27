@@ -7,6 +7,9 @@ import 'splitting/dist/splitting.css'
 import 'splitting/dist/splitting-cells.css'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger'
+import SmallTitle from './SmallTitle'
+
+gsap.registerPlugin(ScrollTrigger)
 
 const anton = Anton({
   weight: ['400'],
@@ -110,21 +113,15 @@ const List = styled.ul`
 
 export default function Work({ data, items }) {
   const listRef = useRef(null)
-  const containerRef = useRef(null)
   const charsRefs = useRef([])
-  const charsTitleRefs = useRef([])
 
   useEffect(() => {
-    gsap.registerPlugin(ScrollTrigger)
     if (listRef && charsRefs.current.length === 0) {
       import('splitting').then(({ default: Splitting }) => {
         Splitting()
 
         const li = listRef.current.querySelectorAll('li')
         const lines = listRef.current.querySelectorAll('.line')
-        const chars = containerRef.current.querySelectorAll('h2 .char')
-
-        charsTitleRefs.current.push(chars)
 
         li.forEach((item) => {
           const chars = item.querySelectorAll('.char')
@@ -218,42 +215,15 @@ export default function Work({ data, items }) {
             width: '100%',
           })
         })
-
-        gsap.fromTo(
-          charsTitleRefs.current,
-          {
-            y: 100,
-            opacity: 0,
-          },
-          {
-            y: 0,
-            opacity: 1,
-            stagger: 0.05,
-            duration: 2,
-            ease: 'power4.out',
-            scrollTrigger: {
-              trigger: charsTitleRefs.current,
-              start: 'top 80%',
-              end: 'top center',
-              scrub: 3,
-              once: true,
-            },
-          }
-        )
       })
     }
   }, [])
 
   return (
-    <Container id='skills' ref={containerRef}>
+    <Container id='skills'>
       <div className='grid grid-cols-12 xl:grid-cols-24 gap-x-2.5'>
         <div className='col-start-2 col-end-5 xl:col-start-5 xl:col-end-10'>
-          <h2
-            data-splitting='chars'
-            className={`${anton.className} small-title`}
-          >
-            {data.title}
-          </h2>
+          <SmallTitle title={data.title} />
         </div>
       </div>
       <List
@@ -279,12 +249,8 @@ export default function Work({ data, items }) {
                     <div className='tech__img--reveal'>
                       <ContentfulImage
                         src={image.file.url}
-                        width={
-                          image.file.details.image.width
-                        }
-                        height={
-                          image.file.details.image.height
-                        }
+                        width={image.file.details.image.width}
+                        height={image.file.details.image.height}
                         quality='100'
                         alt={image.title}
                       />

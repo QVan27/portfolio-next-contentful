@@ -1,14 +1,10 @@
 import React, { useRef, useEffect } from 'react'
 import styled from 'styled-components'
-import { Anton, Nunito_Sans } from 'next/font/google'
+import { Nunito_Sans } from 'next/font/google'
 import Texture from '@/assets/images/distortions/texture.jpeg'
 import hoverEffect from 'hover-effect';
 import RichText from '@/components/RichText'
-
-const anton = Anton({
-  weight: ['400'],
-  subsets: ['latin']
-})
+import SmallTitle from './SmallTitle'
 
 const nunitoSans = Nunito_Sans({
   weight: ['300'],
@@ -72,7 +68,7 @@ export default function About({ data }) {
           </div>
         </div>
         <div className='content col-start-2 col-end-12 xl:col-start-12 xl:col-end-23 flex flex-col gap-y-5'>
-          <h2 className={`${anton.className} small-title`}>{data.title}</h2>
+          <SmallTitle title={data.title} />
           <div className={`${nunitoSans.className} content__text`}>
             <RichText content={data.text} />
           </div>

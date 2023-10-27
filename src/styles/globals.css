@@ -76,12 +76,3 @@ html.lenis {
 .lenis.lenis-smooth [data-lenis-prevent] {
   overscroll-behavior: contain;
 }
-
-.small-title {
-  color: var(--main);
-  font-size: var(--font__title);
-  line-height: normal;
-  letter-spacing: 0.075rem;
-  text-transform: uppercase;
-  clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
-}
