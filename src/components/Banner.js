@@ -60,14 +60,21 @@ const Container = styled.section`
       @media screen and (min-width: 1536px) { width: min(55.31rem, 100%); } 
 
       p {
-        font-size: 1.5rem;
+        font-size: 2rem;
         font-style: normal;
         line-height: normal;
-        text-align: center;
         
-        @media screen and (min-width: 768px) { font-size: 2.5rem; }
+        @media screen and (min-width: 640px) { 
+          font-size: 2.5rem;
+          text-align: center;
+        }
         
-        @media screen and (min-width: 1280px) { text-align: right; }      
+        @media screen and (min-width: 1024px) { 
+          font-size: 2rem;
+          text-align: right;
+        }      
+
+        @media screen and (min-width: 1280px) { font-size: 2.5rem; }
   
         b { color: var(--highlight); }
       }
@@ -103,14 +110,14 @@ export default function Banner({ data }) {
       </div>
       <div className='min-h-screen grid grid-cols-12 xl:grid-cols-24 gap-x-2.5 items-center'>
         <h1 className='col-start-2 col-end-12 xl:col-start-3 xl:col-end-23 flex flex-col content'>
-          <span className={`${anton.className} text-center title-border`}>{data.firstBigText}</span>
-          <div className='flex flex-wrap justify-center xl:gap-x-12 texts lg:items-center'>
+          <span className={`${anton.className} hidden sm:block text-center title-border`}>{data.firstBigText}</span>
+          <div className='flex flex-col lg:flex-row justify-center lg:gap-x-12 texts items-center'>
             <div className={`${maitree.className}`}>
               <RichText content={data.contents} />
             </div>
-            <span className={`${anton.className} title-full text-center`}>{data.secondBigText}</span>
+            <span className={`${anton.className} hidden sm:block title-full text-center`}>{data.secondBigText}</span>
           </div>
-          <span className={`${anton.className} hidden xl:block text-center title-border`}>{data.thirdBigText}</span>
+          <span className={`${anton.className} hidden lg:block text-center title-border`}>{data.thirdBigText}</span>
         </h1>
       </div>
     </Container>

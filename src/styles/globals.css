@@ -14,7 +14,7 @@
   --z-header: 100;
   --z-loader: 150;
 
-  --font__titleBorder: 3.75rem;
+  --font__titleBorder: 4.75rem;
   --font__titleStack: 3.5rem;
   --font__title: 0.75rem;
   --font__text: 1.5rem;
@@ -65,11 +65,14 @@ main {
   min-height: 100vh;
 }
 
-.small-title {
-  color: var(--main);
-  font-size: var(--font__title);
-  line-height: normal;
-  letter-spacing: 0.075rem;
-  text-transform: uppercase;
-  clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+.lenis.lenis-smooth {
+  scroll-behavior: auto;
+}
+
+html.lenis {
+  height: auto;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
 }

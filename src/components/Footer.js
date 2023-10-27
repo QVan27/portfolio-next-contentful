@@ -1,15 +1,11 @@
 import React, { useEffect, useRef } from 'react'
 import styled from "styled-components"
-import { Anton, Maitree, Nunito_Sans } from 'next/font/google'
+import { Maitree, Nunito_Sans } from 'next/font/google'
 import 'splitting/dist/splitting.css'
 import 'splitting/dist/splitting-cells.css'
 import gsap from 'gsap'
 import Link from "next/link"
-
-const anton = Anton({
-  weight: ["400"],
-  subsets: ['latin']
-})
+import SmallTitle from './SmallTitle'
 
 const maitree = Maitree({
   weight: ["300"],
@@ -23,13 +19,6 @@ const nunitoSans = Nunito_Sans({
 
 const Container = styled.footer`
   padding: 6.25rem 0rem 1.875rem 0rem;
-
-  .title {
-    color: var(--main);
-    font-size: 0.75rem;
-    line-height: normal;
-    letter-spacing: 0.075rem;
-  }
 
   .socials a {
     font-size: 2.25rem;
@@ -147,8 +136,8 @@ export default function Footer() {
     <Container id='contact'>
       <div className='grid grid-cols-12 xl:grid-cols-24 gap-x-2.5'>
         <div className='col-start-2 col-end-12 xl:col-start-3 xl:col-end-23 flex flex-col gap-y-10'>
-          <span className={`${anton.className} title uppercase`}>connect</span>
-          <div className='flex flex-wrap justify-between items-end'>
+          <SmallTitle title='connect' />
+          <div className='flex flex-col sm:flex-row sm:flex-wrap sm:justify-between sm:items-end'>
             <div ref={socials} className={`${maitree.className} flex flex-col items-start socials`}>
               <Link data-splitting='chars' aria-label='LinkedIn' href='#'>LinkedIn</Link>
               <Link data-splitting='chars' aria-label='Github' href='#'>Github</Link>
