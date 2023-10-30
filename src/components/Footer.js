@@ -18,6 +18,8 @@ const nunitoSans = Nunito_Sans({
 })
 
 const Section = styled.footer`
+  position: relative;
+  z-index: calc(var(--z-networks) + 1);
   padding: 6.25rem 0rem 1.875rem 0rem;
 
   .socials a {

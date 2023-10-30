@@ -13,10 +13,10 @@ const nunitoSans = Nunito_Sans({
 
 const Section = styled.section`
   position: relative;
-
+  
   .distortion {
     position: absolute;
-    z-index: 1;
+    z-index: calc(var(--z-networks) - 1);
     inset: 0;
     mix-blend-mode: color-dodge;
     overflow: hidden;

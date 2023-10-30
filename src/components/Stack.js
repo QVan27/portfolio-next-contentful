@@ -16,7 +16,12 @@ const nunitoSans = Nunito_Sans({
   subsets: ['latin']
 })
 
-const Section = styled.section`padding: 6.25rem 0rem;`;
+const Section = styled.section`
+  position: relative;
+  z-index: calc(var(--z-networks) + 1);
+  padding: 6.25rem 0rem;
+  background-color: var(--primary-background);
+`
 
 const List = styled.ul`
   margin-top: 1.25rem;

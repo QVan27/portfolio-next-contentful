@@ -12,7 +12,6 @@ const Cursor = styled.div`
   opacity: 0;
   transform: translate(-50%, -50%);
   z-index: calc(var(--z-loader) - 1);
-  /* z-index: 1; */
   background-color: var(--highlight);
   transition: width 0.3s ease-in-out, height 0.3s ease-in-out;
 
