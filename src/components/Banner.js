@@ -15,7 +15,7 @@ const maitree = Maitree({
   subsets: ['latin']
 })
 
-const Container = styled.section`
+const Section = styled.section`
   position: relative;
 
   .distortion {
@@ -105,7 +105,7 @@ export default function Banner({ data }) {
   }, [])
 
   return (
-    <Container>
+    <Section>
       <div className='distortion'>
         <div ref={distortion}></div>
       </div>
@@ -121,6 +121,6 @@ export default function Banner({ data }) {
           <span className={`${anton.className} flareBigger hidden lg:block text-center title-border`}>{data.thirdBigText}</span>
         </h1>
       </div>
-    </Container>
+    </Section>
   )
 }

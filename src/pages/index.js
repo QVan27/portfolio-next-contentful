@@ -4,11 +4,13 @@ import About from '@/components/About'
 import Stack from '@/components/Stack'
 import Work from '@/components/Work'
 import HeadData from '@/components/HeadData';
+import SocialNetworks from '@/components/SocialNetworks';
 
-export default function Home({ dataBanner, dataAbout, dataStack, dataWork, dataWebsite }) {
+export default function Home({ dataBanner, dataAbout, dataStack, dataWork, dataWebsite, dataSocialNetworks }) {
   return (
     <>
       <HeadData />
+      <SocialNetworks data={dataSocialNetworks} />
       <Banner data={dataBanner[0].fields} />
       <Stack data={dataStack[0].fields} />
       <About data={dataAbout[0].fields} />
@@ -23,6 +25,7 @@ export const getStaticProps = async () => {
   const stack = await client.getEntries({ content_type: 'stack' })
   const work = await client.getEntries({ content_type: 'work' })
   const website = await client.getEntries({ content_type: 'website' })
+  const socialNetworks = await client.getEntries({ content_type: 'socialNetworks' })
 
   return {
     props: {
@@ -31,6 +34,7 @@ export const getStaticProps = async () => {
       dataStack: stack.items,
       dataWork: work.items,
       dataWebsite: website.items,
+      dataSocialNetworks: socialNetworks.items,
       revalidate: 70
     }
   }
