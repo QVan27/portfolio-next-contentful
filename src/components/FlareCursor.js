@@ -12,6 +12,7 @@ const Cursor = styled.div`
   opacity: 0;
   transform: translate(-50%, -50%);
   z-index: calc(var(--z-loader) - 1);
+  /* z-index: 1; */
   background-color: var(--highlight);
   transition: width 0.3s ease-in-out, height 0.3s ease-in-out;
 
@@ -26,6 +27,11 @@ const Cursor = styled.div`
     transition: width 0.3s ease-in-out, height 0.3s ease-in-out, opacity 0.3s ease-in-out;
   }
 
+  &.bigger {
+    transition: width 0.3s ease-in-out, height 0.3s ease-in-out;
+    mix-blend-mode: difference;
+  }
+
   ${({ $flareSize }) => css`
     width: ${$flareSize}px;
     height: ${$flareSize}px;
@@ -35,6 +41,7 @@ const Cursor = styled.div`
 function FlareCursor() {
   const cursorRef = useRef(null)
   const [isPointer, setIsPointer] = useState(false)
+  const [isBigger, setIsBigger] = useState(false)
 
   useEffect(() => {
     const cursorAnimation = gsap.timeline({ paused: true })
@@ -55,6 +62,10 @@ function FlareCursor() {
       setIsPointer(
         window.getComputedStyle(target).getPropertyValue('cursor') === 'pointer'
       )
+
+      setIsBigger(
+        target.classList.contains('flareBigger')
+      )
     }
 
     window.addEventListener('mousemove', handleMouseMove)
@@ -64,9 +75,9 @@ function FlareCursor() {
     }
   }, [])
 
-  const flareSize = isPointer ? 0 : 30
+  const flareSize = isPointer ? 0 : isBigger ? 80 : 30
 
-  return <Cursor $flareSize={flareSize} ref={cursorRef} className={`flare ${isPointer ? 'pointer' : ''}`} />
+  return <Cursor $flareSize={flareSize} ref={cursorRef} className={`flare ${isPointer ? 'pointer' : ''} ${isBigger ? 'bigger' : ''}`} />
 }
 
 export default FlareCursor

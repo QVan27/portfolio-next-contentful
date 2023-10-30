@@ -1,7 +1,7 @@
 import React, { useRef, useEffect } from 'react'
 import styled from 'styled-components'
 import { Anton, Maitree } from 'next/font/google'
-import Texture from '@/assets/images/distortions/texture.jpeg'
+import Diss from '@/assets/images/distortions/diss.png'
 import hoverEffect from 'hover-effect';
 import RichText from '@/components/RichText'
 
@@ -36,7 +36,8 @@ const Container = styled.section`
     position: relative;
     z-index: 2;
     line-height: normal;
-    pointer-events: none;
+
+    p { pointer-events: none; }
 
     .title-border {
       color: transparent;
@@ -97,7 +98,7 @@ export default function Banner({ data }) {
       intensity: 0.2,
       image1: imageDistortion1,
       image2: imageDistortion2,
-      displacementImage: Texture.src,
+      displacementImage: Diss.src,
       imagesRatio: 1 / 0.8,
       easing: 'power4.out'
     })
@@ -110,14 +111,14 @@ export default function Banner({ data }) {
       </div>
       <div className='min-h-screen grid grid-cols-12 xl:grid-cols-24 gap-x-2.5 items-center'>
         <h1 className='col-start-2 col-end-12 xl:col-start-3 xl:col-end-23 flex flex-col content'>
-          <span className={`${anton.className} hidden sm:block text-center title-border`}>{data.firstBigText}</span>
+          <span className={`${anton.className} hidden sm:block text-center title-border flareBigger`}>{data.firstBigText}</span>
           <div className='flex flex-col lg:flex-row justify-center lg:gap-x-12 texts items-center'>
-            <div className={`${maitree.className}`}>
+            <div className={`${maitree.className} flareBigger`}>
               <RichText content={data.contents} />
             </div>
-            <span className={`${anton.className} hidden sm:block title-full text-center`}>{data.secondBigText}</span>
+            <span className={`${anton.className} flareBigger hidden sm:block title-full text-center`}>{data.secondBigText}</span>
           </div>
-          <span className={`${anton.className} hidden lg:block text-center title-border`}>{data.thirdBigText}</span>
+          <span className={`${anton.className} flareBigger hidden lg:block text-center title-border`}>{data.thirdBigText}</span>
         </h1>
       </div>
     </Container>

@@ -25,6 +25,8 @@ const Container = styled.section`
       width: min(37.125rem, 100%);
       height: 100%;
       margin-inline: auto;
+
+      canvas { pointer-events: none; }
     }
   }
 
@@ -64,7 +66,7 @@ export default function About({ data }) {
       <div className='grid grid-cols-12 xl:grid-cols-24 gap-x-2.5 items-center'>
         <div className='col-start-2 col-end-12 xl:col-start-3 xl:col-end-11 h-full xl:relative'>
           <div className='distortion'>
-            <div ref={distortion}></div>
+            <div className='flareBigger' ref={distortion}></div>
           </div>
         </div>
         <div className='content col-start-2 col-end-12 xl:col-start-12 xl:col-end-23 flex flex-col gap-y-5'>

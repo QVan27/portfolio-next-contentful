@@ -137,7 +137,7 @@ export default function Header() {
           src={Logo}
           width={210}
           height={48}
-          className='col-start-2 col-end-8 xl:col-start-3 xl:col-end-7'
+          className='flareBigger col-start-2 col-end-8 xl:col-start-3 xl:col-end-7'
         />
         <nav ref={nav} className={`${maitree.className} col-end-12 col-span-3 text-right xl:col-end-23 xl:col-span-2`}>
           <ul>

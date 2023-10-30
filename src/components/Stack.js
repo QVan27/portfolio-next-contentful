@@ -27,6 +27,8 @@ const List = styled.ul`
     @media screen and (hover: hover) {
       position: relative;
 
+      div { pointer-events: none; }
+
       &:hover {
         .background { height: 100%; }
 
@@ -117,7 +119,7 @@ export default function Stack({ data }) {
       <List ref={listRef}>
         {data.items.map((item, index) => {
           return (
-            <li key={item.id}>
+            <li key={item.id} className='flareBigger'>
               <div className='background'></div>
               {index === 0 ? (
                 <>
