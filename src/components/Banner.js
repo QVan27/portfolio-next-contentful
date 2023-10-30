@@ -110,7 +110,7 @@ export default function Banner({ data }) {
         <div ref={distortion}></div>
       </div>
       <div className='min-h-screen grid grid-cols-12 xl:grid-cols-24 gap-x-2.5 items-center'>
-        <h1 className='col-start-2 col-end-12 xl:col-start-3 xl:col-end-23 flex flex-col content'>
+        <h1 className='col-start-2 col-end-12 xl:col-start-3 xl:col-end-23 flex flex-col items-center content'>
           <span className={`${anton.className} hidden sm:block text-center title-border flareBigger`}>{data.firstBigText}</span>
           <div className='flex flex-col lg:flex-row justify-center lg:gap-x-12 texts items-center'>
             <div className={`${maitree.className} flareBigger`}>
