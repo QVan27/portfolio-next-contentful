@@ -17,7 +17,7 @@ const nunitoSans = Nunito_Sans({
   subsets: ['latin']
 })
 
-const Container = styled.footer`
+const Section = styled.footer`
   padding: 6.25rem 0rem 1.875rem 0rem;
 
   .socials a {
@@ -133,7 +133,7 @@ export default function Footer() {
   }, [])
 
   return (
-    <Container id='contact'>
+    <Section id='contact'>
       <div className='grid grid-cols-12 xl:grid-cols-24 gap-x-2.5'>
         <div className='col-start-2 col-end-12 xl:col-start-3 xl:col-end-23 flex flex-col gap-y-10'>
           <SmallTitle title='connect' />
@@ -149,6 +149,6 @@ export default function Footer() {
           </div>
         </div>
       </div>
-    </Container>
+    </Section>
   )
 }

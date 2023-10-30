@@ -11,7 +11,7 @@ const nunitoSans = Nunito_Sans({
   subsets: ['latin']
 })
 
-const Container = styled.section`
+const Section = styled.section`
   position: relative;
 
   .distortion {
@@ -62,7 +62,7 @@ export default function About({ data }) {
   }, [])
 
   return (
-    <Container>
+    <Section>
       <div className='grid grid-cols-12 xl:grid-cols-24 gap-x-2.5 items-center'>
         <div className='col-start-2 col-end-12 xl:col-start-3 xl:col-end-11 h-full xl:relative'>
           <div className='distortion'>
@@ -76,6 +76,6 @@ export default function About({ data }) {
           </div>
         </div>
       </div>
-    </Container>
+    </Section>
   )
 }

@@ -16,7 +16,7 @@ const nunitoSans = Nunito_Sans({
   subsets: ['latin']
 })
 
-const Container = styled.section`padding: 6.25rem 0rem;`;
+const Section = styled.section`padding: 6.25rem 0rem;`;
 
 const List = styled.ul`
   margin-top: 1.25rem;
@@ -110,7 +110,7 @@ export default function Stack({ data }) {
   }, [])
 
   return (
-    <Container id='about'>
+    <Section id='about'>
       <div className='grid grid-cols-12 xl:grid-cols-24 gap-x-2.5'>
         <div className='col-start-2 col-end-5 xl:col-start-5 xl:col-end-10'>
           <SmallTitle title={data.title} />
@@ -147,6 +147,6 @@ export default function Stack({ data }) {
           )
         })}
       </List>
-    </Container>
+    </Section>
   )
 }
