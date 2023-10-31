@@ -6,7 +6,7 @@ export default function Scroll({ children }) {
   const lenis = useLenis()
 
   useEffect(() => {
-    function onHashChangeStart(url) {
+    const onHashChangeStart = (url) => {
       url = '#' + url.split('#').pop()
       lenis.scrollTo(url)
     }
@@ -17,6 +17,10 @@ export default function Scroll({ children }) {
       Router.events.off('hashChangeStart', onHashChangeStart)
     }
   }, [lenis])
+
+  useEffect(() => {
+    window.history.scrollRestoration = 'manual'
+  }, [])
 
   return (
     <ReactLenis
