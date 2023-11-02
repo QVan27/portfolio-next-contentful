@@ -2,18 +2,18 @@ import React, { useRef, useEffect } from 'react'
 import styled from 'styled-components'
 import { Nunito_Sans } from 'next/font/google'
 import Texture from '@/assets/images/distortions/texture.jpeg'
-import hoverEffect from 'hover-effect';
+import hoverEffect from 'hover-effect'
 import RichText from '@/components/RichText'
-import SmallTitle from './SmallTitle'
+import SmallTitle from '@/components/SmallTitle'
 
 const nunitoSans = Nunito_Sans({
   weight: ['300'],
-  subsets: ['latin']
+  subsets: ['latin'],
 })
 
 const Section = styled.section`
   position: relative;
-  
+
   .distortion {
     position: absolute;
     z-index: calc(var(--z-networks) - 1);
@@ -26,13 +26,15 @@ const Section = styled.section`
       height: 100%;
       margin-inline: auto;
 
-      canvas { pointer-events: none; }
+      canvas {
+        pointer-events: none;
+      }
     }
   }
 
   .content {
     margin: 9.375rem 0 6.25rem 0rem;
-  
+
     &__text {
       color: var(--paragraph);
       font-size: var(--font__text);
@@ -40,8 +42,7 @@ const Section = styled.section`
       letter-spacing: 0.03rem;
     }
   }
-
-`;
+`
 
 export default function About({ data }) {
   const distortion = useRef(null)
@@ -57,7 +58,7 @@ export default function About({ data }) {
       image2: imageDistortion2,
       displacementImage: Texture.src,
       imagesRatio: 1 / 0.8,
-      easing: 'power4.out'
+      easing: 'power4.out',
     })
   }, [])
 

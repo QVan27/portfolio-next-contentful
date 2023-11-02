@@ -7,7 +7,7 @@ import 'splitting/dist/splitting.css'
 import 'splitting/dist/splitting-cells.css'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger'
-import SmallTitle from './SmallTitle'
+import SmallTitle from '@/components/SmallTitle'
 
 gsap.registerPlugin(ScrollTrigger)
 

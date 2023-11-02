@@ -1,8 +1,8 @@
 import { client } from '@/lib/contentful'
-import Banner from '@/components/Banner'
-import About from '@/components/About'
-import Stack from '@/components/Stack'
-import Work from '@/components/Work'
+import Banner from '@/templates/Banner'
+import About from '@/templates/About'
+import Stack from '@/templates/Stack'
+import Work from '@/templates/Work'
 import HeadData from '@/components/HeadData';
 import SocialNetworks from '@/components/SocialNetworks';
 

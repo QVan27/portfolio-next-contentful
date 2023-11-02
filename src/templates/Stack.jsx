@@ -1,19 +1,19 @@
 import React, { useEffect, useRef } from 'react'
 import styled from 'styled-components'
 import { Anton, Nunito_Sans } from 'next/font/google'
-import SmallTitle from './SmallTitle'
+import SmallTitle from '@/components/SmallTitle'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger'
 gsap.registerPlugin(ScrollTrigger)
 
 const anton = Anton({
   weight: ['400'],
-  subsets: ['latin']
+  subsets: ['latin'],
 })
 
 const nunitoSans = Nunito_Sans({
   weight: ['600'],
-  subsets: ['latin']
+  subsets: ['latin'],
 })
 
 const Section = styled.section`
@@ -32,20 +32,28 @@ const List = styled.ul`
     @media screen and (hover: hover) {
       position: relative;
 
-      div { pointer-events: none; }
+      div {
+        pointer-events: none;
+      }
 
       &:hover {
-        .background { height: 100%; }
+        .background {
+          height: 100%;
+        }
 
-        h3 { color: var(--primary-background); }
+        h3 {
+          color: var(--primary-background);
+        }
 
-        p { opacity: 1; }
+        p {
+          opacity: 1;
+        }
       }
     }
 
     h3 {
       color: var(--main);
-      font-size:var(--font__titleStack);
+      font-size: var(--font__titleStack);
       font-style: normal;
       line-height: 5.625rem;
       letter-spacing: 0.24rem;
@@ -60,9 +68,13 @@ const List = styled.ul`
       letter-spacing: 0.015rem;
       margin-bottom: 1.5rem;
 
-      @media screen and (min-width: 640px) { width: min(18.25rem, 100%); }
+      @media screen and (min-width: 640px) {
+        width: min(18.25rem, 100%);
+      }
 
-      @media screen and (min-width: 768px) { margin-bottom: 0; }
+      @media screen and (min-width: 768px) {
+        margin-bottom: 0;
+      }
 
       @media screen and (hover: hover) {
         color: var(--primary-background);
@@ -92,7 +104,7 @@ const List = styled.ul`
       }
     }
   }
-`;
+`
 
 export default function Stack({ data }) {
   const listRef = useRef(null)
