@@ -55,14 +55,7 @@ export default function Loader() {
       innerHTML: 100,
       ease: 'power2.inOut',
       onStart: () => {
-        // lenis && lenis.scrollTo(0)
         lenis && lenis.stop()
-
-        // if (lenis) {
-        //   lenis.scrollTo(0)
-        //   lenis.stop()
-        // }
-
         counterElement.innerHTML = 0
       },
       onUpdate: () => {
