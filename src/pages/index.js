@@ -5,6 +5,7 @@ import Stack from '@/templates/Stack'
 import Work from '@/templates/Work'
 import HeadData from '@/components/HeadData';
 import SocialNetworks from '@/components/SocialNetworks';
+import Contact from '@/templates/Contact'
 
 export default function Home({ dataBanner, dataAbout, dataStack, dataWork, dataWebsite, dataSocialNetworks }) {
   return (
@@ -15,6 +16,7 @@ export default function Home({ dataBanner, dataAbout, dataStack, dataWork, dataW
       <Stack data={dataStack[0].fields} />
       <About data={dataAbout[0].fields} />
       <Work data={dataWork[0].fields} items={dataWebsite} />
+      <Contact />
     </>
   )
 }

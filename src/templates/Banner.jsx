@@ -41,13 +41,7 @@ const Section = styled.section`
       pointer-events: none;
     }
 
-    .title-border {
-      color: transparent;
-      -webkit-text-stroke: 1px var(--main);
-    }
-
-    .title-full,
-    .title-border {
+    .title-full {
       font-size: var(--font__titleBorder);
       letter-spacing: 0.32rem;
       line-height: 1;

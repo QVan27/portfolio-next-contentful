@@ -65,3 +65,12 @@ body {
 main {
   min-height: 100vh;
 }
+
+.title-border {
+  color: transparent;
+  text-transform: uppercase;
+  -webkit-text-stroke: 1px var(--main);
+  font-size: var(--font__titleBorder);
+  letter-spacing: 0.32rem;
+  line-height: 1;
+}
