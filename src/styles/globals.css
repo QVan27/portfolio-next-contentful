@@ -66,14 +66,11 @@ main {
   min-height: 100vh;
 }
 
-.lenis.lenis-smooth {
-  scroll-behavior: auto;
-}
-
-html.lenis {
-  height: auto;
-}
-
-.lenis.lenis-smooth [data-lenis-prevent] {
-  overscroll-behavior: contain;
+.title-border {
+  color: transparent;
+  text-transform: uppercase;
+  -webkit-text-stroke: 1px var(--main);
+  font-size: var(--font__titleBorder);
+  letter-spacing: 0.32rem;
+  line-height: 1;
 }

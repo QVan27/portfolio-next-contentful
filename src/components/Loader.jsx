@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from 'react'
 import styled from 'styled-components'
 import { Anton } from 'next/font/google'
 import gsap from 'gsap'
+import { useLenis } from '@studio-freight/react-lenis'
 
 const anton = Anton({
   weight: ['400'],
@@ -44,15 +45,17 @@ const Overlay = styled.div`
 export default function Loader() {
   const counterRef = useRef(null)
   const overlayRef = useRef(null)
+  const lenis = useLenis()
 
   useEffect(() => {
     const counterElement = counterRef.current
-
+    
     const animation = gsap.to(counterElement, {
       duration: animationDuration,
       innerHTML: 100,
       ease: 'power2.inOut',
       onStart: () => {
+        lenis && lenis.stop()
         counterElement.innerHTML = 0
       },
       onUpdate: () => {
@@ -67,6 +70,7 @@ export default function Loader() {
         onComplete: () => {
           counterRef.current.remove()
           overlayRef.current.remove()
+          lenis && lenis.start()
         },
       })
 
@@ -87,7 +91,7 @@ export default function Loader() {
     return () => {
       animation.kill()
     }
-  }, [])
+  }, [lenis])
 
   return (
     <>

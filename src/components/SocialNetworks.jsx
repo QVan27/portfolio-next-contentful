@@ -13,9 +13,7 @@ const Container = styled.div`
   z-index: var(--z-networks);
   transform: rotate(-90deg);
 
-  @media screen and (min-width: 1280px) {
-    left: 6rem;
-  }
+  @media screen and (min-width: 1280px) { left: 2.5rem; }
 `
 
 const List = styled.ul`
