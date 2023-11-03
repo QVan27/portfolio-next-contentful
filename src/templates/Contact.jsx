@@ -63,9 +63,13 @@ const Content = styled.div`
       letter-spacing: 0.32rem;
       line-height: 1;
 
-      @media screen and (min-width: 768px) { font-size: 6rem; }
+      @media screen and (min-width: 768px) {
+        font-size: 6rem;
+      }
 
-      @media screen and (min-width: 1024px) { font-size: 8rem; }
+      @media screen and (min-width: 1024px) {
+        font-size: 8rem;
+      }
     }
   }
 `
@@ -87,9 +91,13 @@ const Area = styled.div`
 
     @media screen and (hover: hover) {
       &:hover {
-        .button__text { display: none; }
+        .button__text {
+          display: none;
+        }
 
-        .button__icon { display: block; }
+        .button__icon {
+          display: block;
+        }
       }
     }
 
@@ -106,7 +114,9 @@ const Area = styled.div`
       letter-spacing: 0.12rem;
       line-height: 1;
 
-      p:nth-child(2) { margin-left: 0.5rem; }
+      p:nth-child(2) {
+        margin-left: 0.5rem;
+      }
     }
 
     &__icon {
@@ -119,8 +129,10 @@ const Area = styled.div`
 export default function Contact() {
   const area = useRef(null)
   const button = useRef(null)
-  const circleRefs = Array.from({ length: 3 }, () => useRef(null))
   const icon = useRef(null)
+  const circle = useRef(null)
+  const circle1 = useRef(null)
+  const circle2 = useRef(null)
 
   const parallaxIt = (e, target, movement) => {
     const boundingRect = area.current.getBoundingClientRect()
@@ -139,23 +151,17 @@ export default function Contact() {
   const callParallax = (e) => {
     if (button.current) parallaxIt(e, button, 0.5)
     if (icon.current) parallaxIt(e, icon, 0.05)
-
-    circleRefs.forEach((circleRef, index) => {
-      let movement
-
-      if (index === 0) movement = 0.01
-      else if (index === 1) movement = 0.1
-      else movement = 0.2
-
-      parallaxIt(e, circleRef, movement)
-    })
+    if (circle.current) parallaxIt(e, circle, 0.01)
+    if (circle1.current) parallaxIt(e, circle1, 0.1)
+    if (circle2.current) parallaxIt(e, circle2, 0.2)
   }
 
   const resetParallax = () => {
     if (button.current) resetParallaxTween(button)
     if (icon.current) resetParallaxTween(icon)
-
-    circleRefs.forEach((circleRef) => { resetParallaxTween(circleRef) })
+    if (circle.current) resetParallaxTween(circle)
+    if (circle1.current) resetParallaxTween(circle1)
+    if (circle2.current) resetParallaxTween(circle2)
   }
 
   const resetParallaxTween = (e) => {
@@ -168,8 +174,12 @@ export default function Contact() {
   }
 
   useEffect(() => {
-    area.current.addEventListener('mousemove', (e) => { callParallax(e) })
-    area.current.addEventListener('mouseleave', () => { resetParallax() })
+    area.current.addEventListener('mousemove', (e) => {
+      callParallax(e)
+    })
+    area.current.addEventListener('mouseleave', () => {
+      resetParallax()
+    })
   }, [])
 
   return (
@@ -187,7 +197,7 @@ export default function Contact() {
                     className={`${anton.className}`}
                     data-atropos-offset='5'
                   >
-                    let's connect
+                    let&apos;s connect
                   </span>
                 </h2>
                 <Area ref={area}>
@@ -196,13 +206,9 @@ export default function Contact() {
                     className='button'
                     href='mailto:qvannarathdev@gmail.com'
                   >
-                    {circleRefs.map((circleRef, index) => (
-                      <div
-                        className='button__circle'
-                        key={index}
-                        ref={circleRef}
-                      ></div>
-                    ))}
+                    <div className='button__circle' ref={circle}></div>
+                    <div className='button__circle' ref={circle1}></div>
+                    <div className='button__circle' ref={circle2}></div>
                     <div className={`${nunitoSans.className} button__text`}>
                       <p>write a</p>
                       <p>message</p>
