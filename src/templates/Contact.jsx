@@ -39,7 +39,7 @@ const Container = styled.div`
   height: 100%;
   width: 100%;
   border-radius: 0.5rem;
-  border: 1px solid var(--stroke);
+  border: 1px solid var(--paragraph);
 `
 
 const Content = styled.div`
@@ -157,15 +157,13 @@ export default function Contact() {
   }
 
   const resetParallax = () => {
-    if (button.current) resetParallaxTween(button)
-    if (icon.current) resetParallaxTween(icon)
-    if (circle.current) resetParallaxTween(circle)
-    if (circle1.current) resetParallaxTween(circle1)
-    if (circle2.current) resetParallaxTween(circle2)
+    [button, icon, circle, circle1, circle2].forEach((ref) => {
+      if (ref.current) resetParallaxTween(ref)
+    })
   }
 
-  const resetParallaxTween = (e) => {
-    gsap.to(e.current, {
+  const resetParallaxTween = (ref) => {
+    gsap.to(ref.current, {
       x: 0,
       y: 0,
       duration: 0.5,
@@ -174,19 +172,20 @@ export default function Contact() {
   }
 
   useEffect(() => {
-    area.current.addEventListener('mousemove', (e) => {
-      callParallax(e)
-    })
-    area.current.addEventListener('mouseleave', () => {
-      resetParallax()
-    })
+    area.current.addEventListener('mousemove', callParallax)
+    area.current.addEventListener('mouseleave', resetParallax)
   }, [])
 
   return (
     <Section id='contact'>
       <div className='min-h-screen grid grid-cols-12 xl:grid-cols-24 gap-x-2.5'>
         <div className='min-h-full col-start-2 col-end-12 xl:col-start-3 xl:col-end-23 flex items-center'>
-          <Atropos className='atropos' activeOffset={40} shadow={false}>
+          <Atropos
+            className='atropos'
+            activeOffset={25}
+            shadow={false}
+            rotateTouch={false}
+          >
             <Container>
               <Content className='content'>
                 <h2>
