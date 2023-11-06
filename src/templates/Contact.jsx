@@ -179,6 +179,24 @@ export default function Contact({ data }) {
     area.current.addEventListener('mouseleave', resetParallax)
   }, [])
 
+  useEffect(() => {
+    gsap.set('.atropos', { opacity: 0, scale: 0, filter: 'blur(50px)' })
+
+    gsap.to('.atropos', {
+      opacity: 1,
+      scale: 1,
+      filter: 'blur(0px)',
+      ease: 'linear',
+      scrollTrigger: {
+        trigger: '.atropos',
+        start: 'top bottom',
+        end: 'top 75%',
+        scrub: 2,
+        once: true,
+      },
+    })
+  }, [])
+
   return (
     <Section id='contact'>
       <div className='min-h-screen grid grid-cols-12 xl:grid-cols-24 gap-x-2.5'>
