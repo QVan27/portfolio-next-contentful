@@ -6,10 +6,7 @@ import ContentfulImage from '@/components/ContentfulImage'
 import 'splitting/dist/splitting.css'
 import 'splitting/dist/splitting-cells.css'
 import gsap from 'gsap'
-import { ScrollTrigger } from 'gsap/dist/ScrollTrigger'
 import SmallTitle from '@/components/SmallTitle'
-
-gsap.registerPlugin(ScrollTrigger)
 
 const anton = Anton({
   weight: ['400'],
@@ -75,7 +72,7 @@ const List = styled.ul`
             height: 100%;
             width: 100%;
             object-fit: cover;
-            transform-origin: left;
+            transform-origin: top;
           }
         }
       }
@@ -142,36 +139,35 @@ export default function Work({ data, items }) {
               },
               {
                 color: 'var(--main)',
-                duration: 0.3,
                 stagger: 0.03,
-                ease: 'power4.out',
+                ease: 'linear',
               }
             )
             tl.fromTo(
               reveal,
               {
-                xPercent: -100,
+                yPercent: -100,
               },
               {
-                xPercent: 0,
+                yPercent: 0,
                 duration: 1.5,
                 ease: 'power4.out',
               },
-              0.3
+              0
             )
             tl.fromTo(
               image,
               {
-                xPercent: 100,
+                yPercent: 100,
                 scale: 1.3,
               },
               {
-                xPercent: 0,
+                yPercent: 0,
                 scale: 1,
                 duration: 1.5,
                 delay: -1.5,
                 ease: 'power4.out',
-              }
+              },
             )
             tl.fromTo(
               text,
@@ -180,7 +176,6 @@ export default function Work({ data, items }) {
               },
               {
                 color: 'var(--highlight)',
-                duration: 0.3,
                 ease: 'sine.out',
               },
               0.5
@@ -199,8 +194,8 @@ export default function Work({ data, items }) {
             scrollTrigger: {
               trigger: line,
               start: 'top bottom',
-              end: 'bottom 70%',
-              scrub: 3,
+              end: 'bottom 80%',
+              scrub: 2,
             },
             width: '100%',
           })

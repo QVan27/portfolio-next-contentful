@@ -3,8 +3,6 @@ import styled from 'styled-components'
 import { Anton, Nunito_Sans } from 'next/font/google'
 import SmallTitle from '@/components/SmallTitle'
 import gsap from 'gsap'
-import { ScrollTrigger } from 'gsap/dist/ScrollTrigger'
-gsap.registerPlugin(ScrollTrigger)
 
 const anton = Anton({
   weight: ['400'],
@@ -118,8 +116,8 @@ export default function Stack({ data }) {
         scrollTrigger: {
           trigger: line,
           start: 'top bottom',
-          end: 'bottom 70%',
-          scrub: 3,
+          end: 'bottom 80%',
+          scrub: 2,
         },
         width: '100%',
       })
