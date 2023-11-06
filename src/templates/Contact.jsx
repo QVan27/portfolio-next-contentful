@@ -206,6 +206,7 @@ export default function Contact({ data }) {
                     ref={button}
                     className='button'
                     href={`mailto:${data.email}`}
+                    aria-label={data.email}
                   >
                     <div className='button__circle' ref={circle}></div>
                     <div className='button__circle' ref={circle1}></div>
