@@ -25,6 +25,7 @@ const Section = styled.section`
   position: relative;
 
   .atropos {
+    z-index: calc(var(--z-networks) + 1);
     height: 80%;
     width: 100%;
   }

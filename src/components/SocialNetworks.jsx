@@ -8,16 +8,14 @@ gsap.registerPlugin(ScrollTrigger)
 
 const Container = styled.div`
   position: fixed;
-  bottom: 10rem;
-  left: -2.2rem;
+  bottom: 5vh;
+  left: 0;
   z-index: var(--z-networks);
-  transform: rotate(-90deg);
-
-  @media screen and (min-width: 1280px) { left: 2.5rem; }
 `
 
 const List = styled.ul`
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: 1.875rem;
@@ -30,7 +28,6 @@ const Item = styled.li`
   height: 1.25rem;
   flex-shrink: 0;
   overflow: hidden;
-  transform: rotate(90deg);
 `
 
 const Icon = styled.div`
@@ -75,8 +72,8 @@ export default function SocialNetworks({ data }) {
   }, [])
 
   return (
-    <Container className='hidden md:grid'>
-      <div className='flex justify-center items-end'>
+    <Container className='hidden md:w-full md:grid md:grid-cols-24 gap-x-2.5'>
+      <div className='flex justify-center items-end md:col-start-2 md:col-end-3'>
         <List className='social-networks'>
           {data.map((item, i) => {
             const icon = item.fields.icon.fields

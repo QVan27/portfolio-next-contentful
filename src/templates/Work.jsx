@@ -21,7 +21,7 @@ const maitree = Maitree({
   subsets: ['latin'],
 })
 
-const Container = styled.section`
+const Section = styled.section`
   padding: 6.25rem 0rem;
 `
 
@@ -136,15 +136,6 @@ export default function Work({ data, items }) {
             tl.clear()
             tl.set(reveal, { autoAlpha: 1 })
             tl.fromTo(
-              item,
-              {
-                zIndex: 0,
-              },
-              {
-                zIndex: 100,
-              }
-            )
-            tl.fromTo(
               chars,
               {
                 color: 'var(--paragraph)',
@@ -219,7 +210,7 @@ export default function Work({ data, items }) {
   }, [])
 
   return (
-    <Container id='skills'>
+    <Section id='skills'>
       <div className='grid grid-cols-12 xl:grid-cols-24 gap-x-2.5'>
         <div className='col-start-2 col-end-5 xl:col-start-5 xl:col-end-10'>
           <SmallTitle title={data.title} />
@@ -236,7 +227,7 @@ export default function Work({ data, items }) {
           return (
             <li
               key={i}
-              className='col-start-2 col-end-12 xl:col-start-5 xl:col-end-21'
+              className='col-start-2 col-end-12 xl:col-start-5 xl:col-end-21 z-20'
             >
               <Link
                 aria-label={fields.title}
@@ -266,6 +257,6 @@ export default function Work({ data, items }) {
           )
         })}
       </List>
-    </Container>
+    </Section>
   )
 }
