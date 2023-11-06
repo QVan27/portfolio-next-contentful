@@ -2,9 +2,7 @@ import React, { useEffect } from 'react'
 import Link from 'next/link'
 import styled from 'styled-components'
 import gsap from 'gsap'
-import { ScrollTrigger } from 'gsap/dist/ScrollTrigger'
 import ContentfulImage from '@/components/ContentfulImage'
-gsap.registerPlugin(ScrollTrigger)
 
 const Container = styled.div`
   position: fixed;
@@ -81,7 +79,7 @@ export default function SocialNetworks({ data }) {
             return (
               <Item key={i}>
                 <div className='item__wrapper'>
-                  <Link href={item.fields.link} target='_blank'>
+                  <Link href={item.fields.link} target='_blank' aria-label={icon.title}>
                     <Icon>
                       <ContentfulImage
                         src={icon.file.url}
