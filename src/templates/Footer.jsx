@@ -50,7 +50,7 @@ const Container = styled.footer`
   }
 `
 
-export default function Footer() {
+export default function Footer({ data }) {
   const socials = useRef(null)
   const charsRefs = useRef([])
 
@@ -138,30 +138,40 @@ export default function Footer() {
     <Container>
       <div className='grid grid-cols-12 xl:grid-cols-24 gap-x-2.5'>
         <div className='col-start-2 col-end-12 xl:col-start-3 xl:col-end-23 flex flex-col gap-y-10'>
-          <SmallTitle title='connect' />
+          <SmallTitle title={data.title} />
           <div className='flex flex-col sm:flex-row sm:flex-wrap sm:justify-between sm:items-end'>
             <div
               ref={socials}
               className={`${maitree.className} flex flex-col items-start socials`}
             >
-              <Link data-splitting='chars' aria-label='LinkedIn' href='#'>
-                LinkedIn
+              <Link
+                data-splitting='chars'
+                aria-label={data.linkedinText}
+                href={data.linkedinLink}
+                target='_blank'
+              >
+                {data.linkedinText}
               </Link>
-              <Link data-splitting='chars' aria-label='Github' href='#'>
-                Github
+              <Link
+                data-splitting='chars'
+                aria-label={data.githubText}
+                href={data.githubLink}
+                target='_blank'
+              >
+                {data.githubText}
               </Link>
             </div>
             <Link
               ref={contact}
               className={`${nunitoSans.className} email`}
-              aria-label='qvannarathdev@gmail.com'
-              href='mailto:qvannarathdev@gmail.com'
+              aria-label={data.email}
+              href={`mailto:${data.email}`}
             >
               <span className='show' data-splitting='chars'>
-                qvannarathdev@gmail.com
+                {data.email}
               </span>
               <span className='hide' data-splitting='chars'>
-                qvannarathdev@gmail.com
+                {data.email}
               </span>
             </Link>
           </div>
