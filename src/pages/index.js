@@ -7,7 +7,7 @@ import HeadData from '@/components/HeadData';
 import SocialNetworks from '@/components/SocialNetworks';
 import Contact from '@/templates/Contact'
 
-export default function Home({ dataBanner, dataAbout, dataStack, dataWork, dataWebsite, dataSocialNetworks }) {
+export default function Home({ dataBanner, dataAbout, dataStack, dataWork, dataWebsite, dataSocialNetworks, dataContact }) {
   return (
     <>
       <HeadData />
@@ -16,7 +16,7 @@ export default function Home({ dataBanner, dataAbout, dataStack, dataWork, dataW
       <Stack data={dataStack[0].fields} />
       <About data={dataAbout[0].fields} />
       <Work data={dataWork[0].fields} items={dataWebsite} />
-      <Contact />
+      <Contact data={dataContact[0].fields} />
     </>
   )
 }
@@ -28,6 +28,7 @@ export const getStaticProps = async () => {
   const work = await client.getEntries({ content_type: 'work' })
   const website = await client.getEntries({ content_type: 'website' })
   const socialNetworks = await client.getEntries({ content_type: 'socialNetworks' })
+  const contact = await client.getEntries({ content_type: 'contact' })
 
   return {
     props: {
@@ -37,6 +38,7 @@ export const getStaticProps = async () => {
       dataWork: work.items,
       dataWebsite: website.items,
       dataSocialNetworks: socialNetworks.items,
+      dataContact: contact.items,
       revalidate: 70
     }
   }
