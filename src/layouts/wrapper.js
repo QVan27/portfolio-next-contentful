@@ -1,7 +1,5 @@
 import React from 'react'
 import Grid from '@/components/Grid';
-import Header from '@/components/Header';
-import Footer from '@/templates/Footer';
 import Loader from '@/components/Loader';
 
 const Wrapper = ({ children }) => {
@@ -9,11 +7,7 @@ const Wrapper = ({ children }) => {
     <>
       <Grid />
       <Loader />
-      <Header />
-      <main>
-        {children}
-      </main>
-      <Footer />
+      {children}
     </>
   )
 }

@@ -25,6 +25,7 @@ const Section = styled.section`
   position: relative;
 
   .atropos {
+    z-index: calc(var(--z-networks) + 1);
     height: 80%;
     width: 100%;
   }
@@ -126,7 +127,7 @@ const Area = styled.div`
   }
 `
 
-export default function Contact() {
+export default function Contact({ data }) {
   const area = useRef(null)
   const button = useRef(null)
   const icon = useRef(null)
@@ -156,8 +157,10 @@ export default function Contact() {
     if (circle2.current) parallaxIt(e, circle2, 0.2)
   }
 
+  const parallaxRefs = [button, icon, circle, circle1, circle2]
+
   const resetParallax = () => {
-    [button, icon, circle, circle1, circle2].forEach((ref) => {
+    parallaxRefs.forEach((ref) => {
       if (ref.current) resetParallaxTween(ref)
     })
   }
@@ -176,6 +179,24 @@ export default function Contact() {
     area.current.addEventListener('mouseleave', resetParallax)
   }, [])
 
+  useEffect(() => {
+    gsap.set('.atropos', { opacity: 0, scale: 0, filter: 'blur(50px)' })
+
+    gsap.to('.atropos', {
+      opacity: 1,
+      scale: 1,
+      filter: 'blur(0px)',
+      ease: 'linear',
+      scrollTrigger: {
+        trigger: '.atropos',
+        start: 'top bottom',
+        end: 'top 75%',
+        scrub: 2,
+        once: true,
+      },
+    })
+  }, [])
+
   return (
     <Section id='contact'>
       <div className='min-h-screen grid grid-cols-12 xl:grid-cols-24 gap-x-2.5'>
@@ -190,27 +211,28 @@ export default function Contact() {
               <Content className='content'>
                 <h2>
                   <span className={`${maitree.className}`}>
-                    Got a project in mind ?
+                    {data.firstTitle}
                   </span>
                   <span
                     className={`${anton.className}`}
                     data-atropos-offset='5'
                   >
-                    let&apos;s connect
+                    {data.secondTitle}
                   </span>
                 </h2>
                 <Area ref={area}>
                   <Link
                     ref={button}
                     className='button'
-                    href='mailto:qvannarathdev@gmail.com'
+                    href={`mailto:${data.email}`}
+                    aria-label={data.email}
                   >
                     <div className='button__circle' ref={circle}></div>
                     <div className='button__circle' ref={circle1}></div>
                     <div className='button__circle' ref={circle2}></div>
                     <div className={`${nunitoSans.className} button__text`}>
-                      <p>write a</p>
-                      <p>message</p>
+                      <p>{data.buttonFirstText}</p>
+                      <p>{data.buttonSecondText}</p>
                     </div>
                     <div className='button__icon' ref={icon}>
                       <FaLocationArrow />

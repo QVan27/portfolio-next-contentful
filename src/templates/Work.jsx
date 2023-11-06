@@ -6,10 +6,7 @@ import ContentfulImage from '@/components/ContentfulImage'
 import 'splitting/dist/splitting.css'
 import 'splitting/dist/splitting-cells.css'
 import gsap from 'gsap'
-import { ScrollTrigger } from 'gsap/dist/ScrollTrigger'
 import SmallTitle from '@/components/SmallTitle'
-
-gsap.registerPlugin(ScrollTrigger)
 
 const anton = Anton({
   weight: ['400'],
@@ -21,7 +18,7 @@ const maitree = Maitree({
   subsets: ['latin'],
 })
 
-const Container = styled.section`
+const Section = styled.section`
   padding: 6.25rem 0rem;
 `
 
@@ -75,7 +72,7 @@ const List = styled.ul`
             height: 100%;
             width: 100%;
             object-fit: cover;
-            transform-origin: left;
+            transform-origin: top;
           }
         }
       }
@@ -136,51 +133,41 @@ export default function Work({ data, items }) {
             tl.clear()
             tl.set(reveal, { autoAlpha: 1 })
             tl.fromTo(
-              item,
-              {
-                zIndex: 0,
-              },
-              {
-                zIndex: 100,
-              }
-            )
-            tl.fromTo(
               chars,
               {
                 color: 'var(--paragraph)',
               },
               {
                 color: 'var(--main)',
-                duration: 0.3,
                 stagger: 0.03,
-                ease: 'power4.out',
+                ease: 'linear',
               }
             )
             tl.fromTo(
               reveal,
               {
-                xPercent: -100,
+                yPercent: -100,
               },
               {
-                xPercent: 0,
+                yPercent: 0,
                 duration: 1.5,
                 ease: 'power4.out',
               },
-              0.3
+              0
             )
             tl.fromTo(
               image,
               {
-                xPercent: 100,
+                yPercent: 100,
                 scale: 1.3,
               },
               {
-                xPercent: 0,
+                yPercent: 0,
                 scale: 1,
                 duration: 1.5,
                 delay: -1.5,
                 ease: 'power4.out',
-              }
+              },
             )
             tl.fromTo(
               text,
@@ -189,7 +176,6 @@ export default function Work({ data, items }) {
               },
               {
                 color: 'var(--highlight)',
-                duration: 0.3,
                 ease: 'sine.out',
               },
               0.5
@@ -208,8 +194,8 @@ export default function Work({ data, items }) {
             scrollTrigger: {
               trigger: line,
               start: 'top bottom',
-              end: 'bottom 70%',
-              scrub: 3,
+              end: 'bottom 80%',
+              scrub: 2,
             },
             width: '100%',
           })
@@ -219,7 +205,7 @@ export default function Work({ data, items }) {
   }, [])
 
   return (
-    <Container id='skills'>
+    <Section id='skills'>
       <div className='grid grid-cols-12 xl:grid-cols-24 gap-x-2.5'>
         <div className='col-start-2 col-end-5 xl:col-start-5 xl:col-end-10'>
           <SmallTitle title={data.title} />
@@ -236,7 +222,7 @@ export default function Work({ data, items }) {
           return (
             <li
               key={i}
-              className='col-start-2 col-end-12 xl:col-start-5 xl:col-end-21'
+              className='col-start-2 col-end-12 xl:col-start-5 xl:col-end-21 z-20'
             >
               <Link
                 aria-label={fields.title}
@@ -266,6 +252,6 @@ export default function Work({ data, items }) {
           )
         })}
       </List>
-    </Container>
+    </Section>
   )
 }
