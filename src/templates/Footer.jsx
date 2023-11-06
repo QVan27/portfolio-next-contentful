@@ -25,10 +25,15 @@ const Container = styled.footer`
   .socials a {
     font-size: 2.25rem;
     letter-spacing: 0.09rem;
+    transition: all 0.3s ease-out;
+
+    .char {
+      transition: all 0.3 ease-out;
+    }
   }
 
   .email {
-    color: var(--main);
+    color: var(--paragraph);
     font-size: 0.875rem;
     line-height: normal;
     letter-spacing: 0.035rem;
@@ -72,20 +77,34 @@ export default function Footer({ data }) {
 
           link.addEventListener('mouseenter', () => {
             gsap.to(chars, {
-              duration: 1,
               color: 'var(--main)',
-              stagger: 0.04,
-              ease: 'power4.out',
+              stagger: 0.03,
+              duration: 0.7,
             })
+            gsap.to(
+              link,
+              {
+                translateX: '10px',
+                duration: 1,
+              },
+              0
+            )
           })
 
           link.addEventListener('mouseleave', () => {
             gsap.to(chars, {
-              duration: 1,
               color: 'var(--paragraph)',
-              stagger: 0.04,
-              ease: 'power4.out',
+              stagger: 0.03,
+              duration: 0.7,
             })
+            gsap.to(
+              link,
+              {
+                translateX: 0,
+                duration: 1,
+              },
+              0
+            )
           })
         })
 
@@ -107,7 +126,7 @@ export default function Footer({ data }) {
 
           gsap.to(wordHide, {
             duration: 0.5,
-            color: 'var(--highlight)',
+            color: 'var(--main)',
             yPercent: 0,
             opacity: 1,
             ease: 'power4.out',
@@ -125,7 +144,7 @@ export default function Footer({ data }) {
           gsap.to(wordHide, {
             duration: 0.5,
             yPercent: 100,
-            color: 'var(--main)',
+            color: 'var(--paragraph)',
             opacity: 0,
             ease: 'power4.out',
           })
