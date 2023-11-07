@@ -133,7 +133,6 @@ export default function Header() {
     gsap.to([nav.current, logoRef.current], {
       yPercent: 0,
       opacity: 1,
-      stagger: 0.01,
       duration: 1,
       delay: 5,
       ease: 'sine.out',
