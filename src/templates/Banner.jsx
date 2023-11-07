@@ -1,5 +1,7 @@
 import React, { useRef, useEffect } from 'react'
 import styled from 'styled-components'
+import 'splitting/dist/splitting.css'
+import 'splitting/dist/splitting-cells.css'
 import { Anton, Maitree } from 'next/font/google'
 import Diss from '@/assets/images/distortions/diss.png'
 import hoverEffect from 'hover-effect'
