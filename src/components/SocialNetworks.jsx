@@ -67,6 +67,20 @@ export default function SocialNetworks({ data }) {
 
   useEffect(() => {
     animateSocialNetworks()
+
+    const items = gsap.utils.toArray('.item__wrapper')
+
+    gsap.set(items, { x: -100, opacity: 0, pointerEvents: 'none' })
+
+    gsap.to(items, {
+      x: 0,
+      opacity: 1,
+      pointerEvents: 'all',
+      stagger: 0.1,
+      ease: 'sine.out',
+      duration: 1,
+      delay: 5,
+    })
   }, [])
 
   return (
@@ -79,7 +93,11 @@ export default function SocialNetworks({ data }) {
             return (
               <Item key={i}>
                 <div className='item__wrapper'>
-                  <Link href={item.fields.link} target='_blank' aria-label={icon.title}>
+                  <Link
+                    href={item.fields.link}
+                    target='_blank'
+                    aria-label={icon.title}
+                  >
                     <Icon>
                       <ContentfulImage
                         src={icon.file.url}

@@ -5,6 +5,9 @@ import Texture from '@/assets/images/distortions/texture.jpeg'
 import hoverEffect from 'hover-effect'
 import RichText from '@/components/RichText'
 import SmallTitle from '@/components/SmallTitle'
+import gsap from 'gsap'
+import 'splitting/dist/splitting.css'
+import 'splitting/dist/splitting-cells.css'
 
 const nunitoSans = Nunito_Sans({
   weight: ['300'],
@@ -46,9 +49,8 @@ const Section = styled.section`
 
 export default function About({ data }) {
   const distortion = useRef(null)
-  const image = data.image.fields.file.url
-  const imageDistortion1 = image
-  const imageDistortion2 = image
+  const imageDistortion1 = data.image.fields.file.url
+  const imageDistortion2 = data.image.fields.file.url
 
   useEffect(() => {
     new hoverEffect({
@@ -62,6 +64,37 @@ export default function About({ data }) {
     })
   }, [])
 
+  const richTextRef = useRef(null)
+
+  useEffect(() => {
+    import('splitting').then(({ default: Splitting }) => {
+      Splitting()
+
+      const p = richTextRef.current.querySelectorAll('p')
+
+      gsap.fromTo(
+        p,
+        {
+          x: 100,
+          opacity: 0,
+        },
+        {
+          x: 0,
+          opacity: 1,
+          stagger: 0.1,
+          ease: 'sine.out',
+          duration: 1,
+          scrollTrigger: {
+            trigger: richTextRef.current,
+            start: 'top bottom',
+            end: 'bottom 80%',
+            scrub: 3,
+          },
+        }
+      )
+    })
+  })
+
   return (
     <Section>
       <div className='grid grid-cols-12 xl:grid-cols-24 gap-x-2.5 items-center'>
@@ -72,7 +105,11 @@ export default function About({ data }) {
         </div>
         <div className='content col-start-2 col-end-12 xl:col-start-12 xl:col-end-23 flex flex-col gap-y-5'>
           <SmallTitle title={data.title} />
-          <div className={`${nunitoSans.className} content__text`}>
+          <div
+            ref={richTextRef}
+            data-splitting='chars'
+            className={`${nunitoSans.className} content__text`}
+          >
             <RichText content={data.text} />
           </div>
         </div>
