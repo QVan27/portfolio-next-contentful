@@ -4,6 +4,7 @@ import { Anton, Maitree } from 'next/font/google'
 import Diss from '@/assets/images/distortions/diss.png'
 import hoverEffect from 'hover-effect'
 import RichText from '@/components/RichText'
+import gsap from 'gsap'
 
 const anton = Anton({
   weight: ['400'],
@@ -17,6 +18,11 @@ const maitree = Maitree({
 
 const Section = styled.section`
   position: relative;
+
+  .word {
+    display: inline-flex;
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+  }
 
   .distortion {
     position: absolute;
@@ -42,6 +48,7 @@ const Section = styled.section`
     }
 
     .title-full {
+      color: var(--highlight);
       font-size: var(--font__titleBorder);
       letter-spacing: 0.32rem;
       line-height: 1;
@@ -84,18 +91,13 @@ const Section = styled.section`
         }
       }
     }
-
-    span {
-      color: var(--highlight);
-    }
   }
 `
 
 export default function Banner({ data }) {
   const distortion = useRef(null)
-  const images = data.imagesDistortions
-  const imageDistortion1 = images[0].fields.file.url
-  const imageDistortion2 = images[1].fields.file.url
+  const imageDistortion1 = data.imagesDistortions[0].fields.file.url
+  const imageDistortion2 = data.imagesDistortions[1].fields.file.url
 
   // https://github.com/robin-dela/hover-effect
   useEffect(() => {
@@ -110,29 +112,225 @@ export default function Banner({ data }) {
     })
   }, [])
 
+  const distortionRef = useRef(null)
+  const titleRef = useRef(null)
+  const firstBigTextRef = useRef(null)
+  const secondBigTextRef = useRef(null)
+  const thirdBigTextRef = useRef(null)
+  const richTextRef = useRef(null)
+
+  useEffect(() => {
+    import('splitting').then(({ default: Splitting }) => {
+      Splitting()
+      const mm = gsap.matchMedia()
+
+      const mediaQueries = [
+        { minWidth: 320 },
+        { minWidth: 640 },
+        { minWidth: 1024 },
+      ]
+
+      mediaQueries.forEach(({ minWidth }) => {
+        mm.add(`(min-width: ${minWidth}px)`, () => {
+          if (minWidth === 320) {
+            const tl = gsap.timeline()
+            const charsRichText = richTextRef.current.querySelectorAll('.char')
+            gsap.set(charsRichText, { opacity: 0 })
+            gsap.set(distortionRef.current, { opacity: 0 })
+
+            tl.to(
+              charsRichText,
+              {
+                opacity: 1,
+                stagger: 0.05,
+                duration: 1,
+                ease: 'power4.out',
+              },
+              3
+            ).to(
+              distortionRef.current,
+              {
+                opacity: 1,
+                ease: 'sine.inOut',
+                duration: 1,
+              },
+              '-=1'
+            )
+          }
+
+          if (minWidth === 640) {
+            const tl = gsap.timeline()
+            const charsRichText = richTextRef.current.querySelectorAll('.char')
+            const charsFirstBigText =
+              firstBigTextRef.current.querySelectorAll('.char')
+            const charsSecondBigText =
+              secondBigTextRef.current.querySelectorAll('.char')
+
+            gsap.set(charsRichText, { opacity: 0 })
+            gsap.set(distortionRef.current, { opacity: 0 })
+            gsap.set([charsFirstBigText, charsSecondBigText], {
+              y: 100,
+              opacity: 0,
+            })
+
+            tl.to(
+              charsRichText,
+              {
+                opacity: 1,
+                stagger: 0.05,
+                duration: 1,
+                ease: 'power4.out',
+              },
+              3
+            )
+              .to(
+                distortionRef.current,
+                {
+                  opacity: 1,
+                  ease: 'sine.inOut',
+                  duration: 1,
+                },
+                '-=1'
+              )
+              .to(
+                charsFirstBigText,
+
+                {
+                  y: 0,
+                  opacity: 1,
+                  stagger: 0.05,
+                  duration: 2,
+                  ease: 'power4.out',
+                },
+                '-=0.5'
+              )
+              .to(
+                charsSecondBigText,
+                {
+                  y: 0,
+                  opacity: 1,
+                  stagger: 0.05,
+                  duration: 2,
+                  ease: 'power4.out',
+                },
+                '-=1.5'
+              )
+          }
+
+          if (minWidth === 1024) {
+            const tl = gsap.timeline()
+            const charsRichText = richTextRef.current.querySelectorAll('.char')
+            const charsFirstBigText =
+              firstBigTextRef.current.querySelectorAll('.char')
+            const charsSecondBigText =
+              secondBigTextRef.current.querySelectorAll('.char')
+            const charsThirdBigText =
+              thirdBigTextRef.current.querySelectorAll('.char')
+
+            gsap.set(charsRichText, { opacity: 0 })
+            gsap.set(distortionRef.current, { opacity: 0 })
+            gsap.set(
+              [charsFirstBigText, charsSecondBigText, charsThirdBigText],
+              {
+                y: 100,
+                opacity: 0,
+              }
+            )
+
+            tl.to(
+              charsRichText,
+              {
+                opacity: 1,
+                stagger: 0.05,
+                duration: 1,
+                ease: 'power4.out',
+              },
+              3
+            )
+              .to(
+                distortionRef.current,
+                {
+                  opacity: 1,
+                  ease: 'sine.inOut',
+                  duration: 1,
+                },
+                '-=1'
+              )
+              .to(
+                charsFirstBigText,
+                {
+                  y: 0,
+                  opacity: 1,
+                  stagger: 0.05,
+                  duration: 2,
+                  ease: 'power4.out',
+                },
+                '-=0.5'
+              )
+              .to(
+                charsSecondBigText,
+                {
+                  y: 0,
+                  opacity: 1,
+                  stagger: 0.05,
+                  duration: 2,
+                  ease: 'power4.out',
+                },
+                '-=1.5'
+              )
+              .to(
+                charsThirdBigText,
+                {
+                  y: 0,
+                  opacity: 1,
+                  stagger: 0.05,
+                  duration: 2,
+                  ease: 'power4.out',
+                },
+                '-=1.5'
+              )
+          }
+        })
+      })
+    })
+  }, [])
+
   return (
     <Section>
-      <div className='distortion'>
+      <div className='distortion' ref={distortionRef}>
         <div ref={distortion}></div>
       </div>
       <div className='min-h-screen grid grid-cols-12 xl:grid-cols-24 gap-x-2.5 items-center'>
-        <h1 className='col-start-2 col-end-12 xl:col-start-3 xl:col-end-23 flex flex-col items-center content'>
+        <h1
+          ref={titleRef}
+          className='col-start-2 col-end-12 xl:col-start-3 xl:col-end-23 flex flex-col items-center content'
+        >
           <span
+            data-splitting='chars'
+            ref={firstBigTextRef}
             className={`${anton.className} hidden sm:block text-center title-border flareBigger`}
           >
             {data.firstBigText}
           </span>
           <div className='flex flex-col lg:flex-row justify-center lg:gap-x-12 texts items-center'>
-            <div className={`${maitree.className} flareBigger`}>
+            <div
+              ref={richTextRef}
+              data-splitting='chars'
+              className={`${maitree.className} flareBigger`}
+            >
               <RichText content={data.contents} />
             </div>
             <span
+              data-splitting='chars'
+              ref={secondBigTextRef}
               className={`${anton.className} flareBigger hidden sm:block title-full text-center`}
             >
               {data.secondBigText}
             </span>
           </div>
           <span
+            data-splitting='chars'
+            ref={thirdBigTextRef}
             className={`${anton.className} flareBigger hidden lg:block text-center title-border`}
           >
             {data.thirdBigText}

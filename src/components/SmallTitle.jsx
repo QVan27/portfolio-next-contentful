@@ -4,9 +4,6 @@ import { Anton } from 'next/font/google'
 import 'splitting/dist/splitting.css'
 import 'splitting/dist/splitting-cells.css'
 import gsap from 'gsap'
-import { ScrollTrigger } from 'gsap/dist/ScrollTrigger'
-
-gsap.registerPlugin(ScrollTrigger)
 
 const anton = Anton({
   weight: ['400'],
