@@ -43,6 +43,7 @@ const Section = styled.section`
     z-index: 2;
     line-height: normal;
 
+    span,
     p {
       pointer-events: none;
     }
@@ -65,6 +66,10 @@ const Section = styled.section`
 
       @media screen and (min-width: 1536px) {
         width: min(55.31rem, 100%);
+      }
+
+      div {
+        pointer-events: none;
       }
 
       p {
@@ -142,7 +147,7 @@ export default function Banner({ data }) {
               charsRichText,
               {
                 opacity: 1,
-                stagger: 0.05,
+                stagger: 0.03,
                 duration: 1,
                 ease: 'power4.out',
               },
@@ -177,7 +182,7 @@ export default function Banner({ data }) {
               charsRichText,
               {
                 opacity: 1,
-                stagger: 0.05,
+                stagger: 0.03,
                 duration: 1,
                 ease: 'power4.out',
               },
@@ -241,7 +246,7 @@ export default function Banner({ data }) {
               charsRichText,
               {
                 opacity: 1,
-                stagger: 0.05,
+                stagger: 0.03,
                 duration: 1,
                 ease: 'power4.out',
               },
@@ -303,16 +308,16 @@ export default function Banner({ data }) {
       <div className='min-h-screen grid grid-cols-12 xl:grid-cols-24 gap-x-2.5 items-center'>
         <h1
           ref={titleRef}
-          className='col-start-2 col-end-12 xl:col-start-3 xl:col-end-23 flex flex-col items-center content'
+          className='col-start-2 col-end-12 xl:col-start-3 xl:col-end-23 flex flex-col items-center flareBigger content'
         >
           <span
             data-splitting='chars'
             ref={firstBigTextRef}
-            className={`${anton.className} hidden sm:block text-center title-border flareBigger`}
+            className={`${anton.className} flareBigger hidden sm:block text-center title-border`}
           >
             {data.firstBigText}
           </span>
-          <div className='flex flex-col lg:flex-row justify-center lg:gap-x-12 texts items-center'>
+          <div className='flex flex-col lg:flex-row justify-center lg:gap-x-12 texts flareBigger items-center'>
             <div
               ref={richTextRef}
               data-splitting='chars'
