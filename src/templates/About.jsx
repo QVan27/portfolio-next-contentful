@@ -69,30 +69,31 @@ export default function About({ data }) {
     import('splitting').then(({ default: Splitting }) => {
       Splitting()
 
-      const p = richTextRef.current.querySelectorAll('p')
+      const paragraphs = richTextRef.current.querySelectorAll('p')
 
-      gsap.fromTo(
-        p,
-        {
-          x: 100,
-          opacity: 0,
-        },
-        {
-          x: 0,
-          opacity: 1,
-          stagger: 0.1,
-          ease: 'sine.out',
-          duration: 1,
+      paragraphs.forEach((p) => {
+        const tl = gsap.timeline({
           scrollTrigger: {
-            trigger: richTextRef.current,
+            trigger: p,
             start: 'top bottom',
-            end: 'bottom 80%',
-            scrub: 3,
+            end: 'bottom center',
+            scrub: 2,
           },
-        }
-      )
+        })
+
+        tl.fromTo(
+          p,
+          {
+            opacity: 0,
+          },
+          {
+            opacity: 1,
+            ease: 'power2.out',
+          }
+        )
+      })
     })
-  })
+  }, [])
 
   return (
     <Section>
