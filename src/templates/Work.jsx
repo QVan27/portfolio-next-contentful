@@ -3,8 +3,6 @@ import styled from 'styled-components'
 import { Anton, Maitree } from 'next/font/google'
 import Link from 'next/link'
 import ContentfulImage from '@/components/ContentfulImage'
-import 'splitting/dist/splitting.css'
-import 'splitting/dist/splitting-cells.css'
 import gsap from 'gsap'
 import SmallTitle from '@/components/SmallTitle'
 

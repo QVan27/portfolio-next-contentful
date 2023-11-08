@@ -1,6 +1,8 @@
 import "@/styles/reset.css";
 import "@/styles/globals.css";
 import "@/styles/scroll.css";
+import 'splitting/dist/splitting.css'
+import 'splitting/dist/splitting-cells.css'
 import 'atropos/css'
 import Wrapper from "@/layouts/wrapper";
 import FlareCursor from '@/components/FlareCursor';

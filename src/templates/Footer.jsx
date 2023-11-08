@@ -1,8 +1,6 @@
 import React, { useEffect, useRef } from 'react'
 import styled from 'styled-components'
 import { Maitree, Nunito_Sans } from 'next/font/google'
-import 'splitting/dist/splitting.css'
-import 'splitting/dist/splitting-cells.css'
 import gsap from 'gsap'
 import Link from 'next/link'
 import SmallTitle from '@/components/SmallTitle'

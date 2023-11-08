@@ -6,8 +6,6 @@ import hoverEffect from 'hover-effect'
 import RichText from '@/components/RichText'
 import SmallTitle from '@/components/SmallTitle'
 import gsap from 'gsap'
-import 'splitting/dist/splitting.css'
-import 'splitting/dist/splitting-cells.css'
 
 const nunitoSans = Nunito_Sans({
   weight: ['300'],
@@ -16,6 +14,7 @@ const nunitoSans = Nunito_Sans({
 
 const Section = styled.section`
   position: relative;
+  overflow: hidden;
 
   .distortion {
     position: absolute;
