@@ -26,9 +26,11 @@ const List = styled.ul`
 
   li {
     display: grid;
+    pointer-events: none;
 
     @media screen and (hover: hover) {
       position: relative;
+      pointer-events: all;
 
       div {
         pointer-events: none;
@@ -42,10 +44,6 @@ const List = styled.ul`
         h3 {
           color: var(--primary-background);
         }
-
-        p {
-          opacity: 1;
-        }
       }
     }
 
@@ -55,7 +53,7 @@ const List = styled.ul`
       font-style: normal;
       line-height: 5.625rem;
       letter-spacing: 0.24rem;
-      transition: color 0.3s ease-out;
+      transition: color 0.5s ease-out;
     }
 
     p {
@@ -76,8 +74,6 @@ const List = styled.ul`
 
       @media screen and (hover: hover) {
         color: var(--primary-background);
-        opacity: 0;
-        transition: opacity 0.3s ease-out;
       }
     }
 
@@ -98,7 +94,7 @@ const List = styled.ul`
         z-index: -1;
         background-color: var(--highlight);
         height: 0;
-        transition: height 0.5s ease-out;
+        transition: height 0.5s ease-in-out;
       }
     }
   }
@@ -107,20 +103,62 @@ const List = styled.ul`
 export default function Stack({ data }) {
   const listRef = useRef(null)
 
-  useEffect(() => {
-    const lines = listRef.current.querySelectorAll('.line')
+  const animateListItem = (item) => {
+    const chars = item.querySelectorAll('.char')
+    const titles = item.querySelectorAll('h3')
+    const tl = gsap.timeline()
 
-    lines.forEach((line) => {
-      gsap.set(line, { width: 0 })
-      gsap.to(line, {
-        scrollTrigger: {
-          trigger: line,
-          start: 'top bottom',
-          end: 'bottom 80%',
-          scrub: 2,
-        },
-        width: '100%',
+    item.addEventListener('mouseenter', () => {
+      tl.clear()
+      tl.set(chars, { opacity: 0 })
+      gsap.to(titles, {
+        x: 20,
+        duration: 0.5,
+        ease: 'sine.out',
       })
+      tl.fromTo(
+        chars,
+        { opacity: 0 },
+        {
+          opacity: 1,
+          stagger: 0.01,
+          ease: 'power2.out',
+        }
+      )
+      tl.play()
+    })
+
+    item.addEventListener('mouseleave', () => {
+      gsap.to(titles, {
+        x: 0,
+        duration: 0.5,
+        ease: 'sine.out',
+      })
+      tl.reverse()
+    })
+  }
+
+  useEffect(() => {
+    import('splitting').then(({ default: Splitting }) => {
+      Splitting()
+
+      const lines = listRef.current.querySelectorAll('.line')
+
+      lines.forEach((line) => {
+        gsap.set(line, { width: 0 })
+        gsap.to(line, {
+          scrollTrigger: {
+            trigger: line,
+            start: 'top bottom',
+            end: 'bottom 80%',
+            scrub: 2,
+          },
+          width: '100%',
+        })
+      })
+
+      const listItems = listRef.current.querySelectorAll('li')
+      listItems.forEach(animateListItem)
     })
   }, [])
 
@@ -142,7 +180,12 @@ export default function Stack({ data }) {
                   <div className='grid grid-cols-12 xl:grid-cols-24 gap-x-2.5'>
                     <div className='col-start-2 col-end-12 xl:col-start-5 xl:col-end-21 flex flex-col sm:flex-row sm:items-center justify-between gap-x-2.5'>
                       <h3 className={`${anton.className}`}>{item.key}</h3>
-                      <p className={`${nunitoSans.className}`}>{item.value}</p>
+                      <p
+                        data-splitting='chars'
+                        className={`${nunitoSans.className}`}
+                      >
+                        {item.value}
+                      </p>
                     </div>
                   </div>
                   <span className='line'></span>
@@ -152,7 +195,12 @@ export default function Stack({ data }) {
                   <div className='grid grid-cols-12 xl:grid-cols-24 gap-x-2.5'>
                     <div className='col-start-2 col-end-12 xl:col-start-5 xl:col-end-21 flex flex-col sm:flex-row sm:items-center justify-between gap-x-2.5'>
                       <h3 className={`${anton.className}`}>{item.key}</h3>
-                      <p className={`${nunitoSans.className}`}>{item.value}</p>
+                      <p
+                        data-splitting='chars'
+                        className={`${nunitoSans.className}`}
+                      >
+                        {item.value}
+                      </p>
                     </div>
                   </div>
                   <span className='line'></span>

@@ -6,8 +6,6 @@ import hoverEffect from 'hover-effect'
 import RichText from '@/components/RichText'
 import SmallTitle from '@/components/SmallTitle'
 import gsap from 'gsap'
-import 'splitting/dist/splitting.css'
-import 'splitting/dist/splitting-cells.css'
 
 const nunitoSans = Nunito_Sans({
   weight: ['300'],
@@ -16,6 +14,7 @@ const nunitoSans = Nunito_Sans({
 
 const Section = styled.section`
   position: relative;
+  overflow: hidden;
 
   .distortion {
     position: absolute;
@@ -70,30 +69,31 @@ export default function About({ data }) {
     import('splitting').then(({ default: Splitting }) => {
       Splitting()
 
-      const p = richTextRef.current.querySelectorAll('p')
+      const paragraphs = richTextRef.current.querySelectorAll('p')
 
-      gsap.fromTo(
-        p,
-        {
-          x: 100,
-          opacity: 0,
-        },
-        {
-          x: 0,
-          opacity: 1,
-          stagger: 0.1,
-          ease: 'sine.out',
-          duration: 1,
+      paragraphs.forEach((p) => {
+        const tl = gsap.timeline({
           scrollTrigger: {
-            trigger: richTextRef.current,
+            trigger: p,
             start: 'top bottom',
-            end: 'bottom 80%',
-            scrub: 3,
+            end: 'bottom center',
+            scrub: 2,
           },
-        }
-      )
+        })
+
+        tl.fromTo(
+          p,
+          {
+            opacity: 0,
+          },
+          {
+            opacity: 1,
+            ease: 'power2.out',
+          }
+        )
+      })
     })
-  })
+  }, [])
 
   return (
     <Section>

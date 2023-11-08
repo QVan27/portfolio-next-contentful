@@ -1,7 +1,5 @@
 import React, { useEffect, useRef } from 'react'
 import gsap from 'gsap'
-import 'splitting/dist/splitting.css'
-import 'splitting/dist/splitting-cells.css'
 import Image from 'next/image'
 import Link from 'next/link'
 import { Maitree } from 'next/font/google'
