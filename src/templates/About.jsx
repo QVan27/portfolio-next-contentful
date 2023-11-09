@@ -66,32 +66,29 @@ export default function About({ data }) {
   const richTextRef = useRef(null)
 
   useEffect(() => {
-    import('splitting').then(({ default: Splitting }) => {
-      Splitting()
+    const paragraphs = richTextRef.current.querySelectorAll('p')
 
-      const paragraphs = richTextRef.current.querySelectorAll('p')
-
-      paragraphs.forEach((p) => {
-        const tl = gsap.timeline({
-          scrollTrigger: {
-            trigger: p,
-            start: 'top bottom',
-            end: 'bottom center',
-            scrub: 2,
-          },
-        })
-
-        tl.fromTo(
-          p,
-          {
-            opacity: 0,
-          },
-          {
-            opacity: 1,
-            ease: 'power2.out',
-          }
-        )
+    paragraphs.forEach((p) => {
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: p,
+          start: 'top bottom',
+          end: 'bottom 80%',
+          scrub: 1,
+        },
       })
+
+      tl.fromTo(
+        p,
+        {
+          opacity: 0,
+        },
+        {
+          opacity: 1,
+          duration: 1,
+          ease: 'power2.out',
+        }
+      )
     })
   }, [])
 
@@ -107,7 +104,6 @@ export default function About({ data }) {
           <SmallTitle title={data.title} />
           <div
             ref={richTextRef}
-            data-splitting='chars'
             className={`${nunitoSans.className} content__text`}
           >
             <RichText content={data.text} />

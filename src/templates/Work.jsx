@@ -116,7 +116,6 @@ export default function Work({ data, items }) {
         Splitting()
 
         const li = listRef.current.querySelectorAll('li')
-        const lines = listRef.current.querySelectorAll('.line')
 
         li.forEach((item) => {
           const chars = item.querySelectorAll('.char')
@@ -124,6 +123,7 @@ export default function Work({ data, items }) {
           const reveal = item.querySelector('.tech__img--reveal')
           const image = reveal.querySelector('img')
           const tl = gsap.timeline({ paused: true })
+          const lines = item.querySelectorAll('.line')
 
           charsRefs.current.push(chars)
 
@@ -165,7 +165,7 @@ export default function Work({ data, items }) {
                 duration: 1.5,
                 delay: -1.5,
                 ease: 'power4.out',
-              },
+              }
             )
             tl.fromTo(
               text,
@@ -184,18 +184,30 @@ export default function Work({ data, items }) {
           item.addEventListener('mouseleave', () => {
             tl.reverse()
           })
-        })
 
-        lines.forEach((line) => {
-          gsap.set(line, { width: 0 })
-          gsap.to(line, {
+          lines.forEach((line) => {
+            gsap.set(line, { width: 0 })
+            gsap.to(line, {
+              scrollTrigger: {
+                trigger: line,
+                start: 'top bottom',
+                end: 'bottom 80%',
+                scrub: 2,
+              },
+              width: '100%',
+            })
+          })
+
+          gsap.set(item, { opacity: 0 })
+
+          gsap.to(item, {
             scrollTrigger: {
-              trigger: line,
+              trigger: item,
               start: 'top bottom',
               end: 'bottom 80%',
               scrub: 2,
             },
-            width: '100%',
+            opacity: 1,
           })
         })
       })
