@@ -27,6 +27,7 @@ const List = styled.ul`
   li {
     display: grid;
     pointer-events: none;
+    overflow: hidden;
 
     @media screen and (hover: hover) {
       position: relative;
@@ -142,22 +143,37 @@ export default function Stack({ data }) {
     import('splitting').then(({ default: Splitting }) => {
       Splitting()
 
-      const lines = listRef.current.querySelectorAll('.line')
+      const listItems = listRef.current.querySelectorAll('li')
 
-      lines.forEach((line) => {
-        gsap.set(line, { width: 0 })
-        gsap.to(line, {
+      listItems.forEach((item) => {
+        const lines = item.querySelectorAll('.line')
+
+        lines.forEach((line) => {
+          gsap.set(line, { width: 0 })
+          gsap.to(line, {
+            scrollTrigger: {
+              trigger: line,
+              start: 'top bottom',
+              end: 'bottom 80%',
+              scrub: 2,
+            },
+            width: '100%',
+          })
+        })
+
+        gsap.set(item, { opacity: 0 })
+
+        gsap.to(item, {
           scrollTrigger: {
-            trigger: line,
+            trigger: item,
             start: 'top bottom',
             end: 'bottom 80%',
             scrub: 2,
           },
-          width: '100%',
+          opacity: 1,
         })
       })
 
-      const listItems = listRef.current.querySelectorAll('li')
       listItems.forEach(animateListItem)
     })
   }, [])
