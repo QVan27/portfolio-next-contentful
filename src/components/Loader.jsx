@@ -25,7 +25,7 @@ const Counter = styled.span`
   color: var(--paragraph);
   font-size: 20vw;
   opacity: 1;
-  transition: opacity ${fadeOutDuration}s ease-in-out;
+  transition: opacity ${fadeOutDuration}s ease-out;
 `
 
 const Overlay = styled.div`
@@ -49,7 +49,7 @@ export default function Loader() {
 
   useEffect(() => {
     const counterElement = counterRef.current
-    
+
     const animation = gsap.to(counterElement, {
       duration: animationDuration,
       innerHTML: 100,
@@ -77,7 +77,7 @@ export default function Loader() {
       tl.to('.counter', {
         duration: fadeOutDuration,
         opacity: 0,
-        ease: 'sine.out',
+        ease: 'linear',
       })
 
       tl.to('.bar', {
@@ -97,16 +97,9 @@ export default function Loader() {
     <>
       <Counter ref={counterRef} className={`${anton.className} counter`} />
       <Overlay ref={overlayRef} className='overlay'>
-        <div className='bar'></div>
-        <div className='bar'></div>
-        <div className='bar'></div>
-        <div className='bar'></div>
-        <div className='bar'></div>
-        <div className='bar'></div>
-        <div className='bar'></div>
-        <div className='bar'></div>
-        <div className='bar'></div>
-        <div className='bar'></div>
+        {Array.from({ length: 10 }).map((_, index) => (
+          <div key={index} className='bar'></div>
+        ))}
       </Overlay>
     </>
   )
