@@ -20,17 +20,24 @@ const Section = styled.section`
     position: absolute;
     z-index: calc(var(--z-networks) + 1);
     inset: 0;
-    mix-blend-mode: color-dodge;
     overflow: hidden;
+    mix-blend-mode: color-dodge;
+
+    @media screen and (min-width: 1024px) { mix-blend-mode: lighten; }
 
     div {
+      margin-inline: auto;
       width: min(37.125rem, 100%);
       height: 100%;
-      margin-inline: auto;
+      filter: saturate(0);
 
-      canvas {
-        pointer-events: none;
+      @media screen and (hover: hover) {
+        transition: filter 0.5s ease-out;
+
+        &:hover { filter: saturate(1); }
       }
+
+      canvas { pointer-events: none; }
     }
   }
 
@@ -94,13 +101,13 @@ export default function About({ data }) {
 
   return (
     <Section>
-      <div className='grid grid-cols-12 xl:grid-cols-24 gap-x-2.5 items-center'>
-        <div className='col-start-2 col-end-12 xl:col-start-3 xl:col-end-11 h-full xl:relative'>
+      <div className='grid grid-cols-12 lg:grid-cols-24 gap-x-2.5 items-center'>
+        <div className='col-start-2 col-end-12 lg:col-start-3 lg:col-end-11 h-full lg:relative'>
           <div className='distortion'>
             <div className='flareBigger' ref={distortion}></div>
           </div>
         </div>
-        <div className='content col-start-2 col-end-12 xl:col-start-12 xl:col-end-23 flex flex-col gap-y-5'>
+        <div className='content col-start-2 col-end-12 lg:col-start-12 lg:col-end-23 flex flex-col gap-y-5'>
           <SmallTitle title={data.title} />
           <div
             ref={richTextRef}
