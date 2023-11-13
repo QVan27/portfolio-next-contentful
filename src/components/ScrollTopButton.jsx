@@ -141,7 +141,7 @@ export default function ScrollTopButton() {
     >
       <div className='flex justify-center items-end md:col-start-22 md:col-end-23'>
         <Area ref={area}>
-          <Button ref={button}>
+          <Button ref={button} aria-label="Scroll on top">
             <div>
               <AiOutlineArrowUp />
             </div>
