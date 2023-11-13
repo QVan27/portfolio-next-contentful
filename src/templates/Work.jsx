@@ -235,7 +235,7 @@ export default function Work({ data, items }) {
               className='col-start-2 col-end-12 xl:col-start-5 xl:col-end-21 z-20'
             >
               <Link
-                aria-label={fields.title}
+                aria-label={fields.title + ' ' + fields.stack}
                 target='_blank'
                 href={fields.link}
               >
