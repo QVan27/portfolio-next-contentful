@@ -4,6 +4,7 @@ import { Maitree, Nunito_Sans } from 'next/font/google'
 import gsap from 'gsap'
 import Link from 'next/link'
 import SmallTitle from '@/components/SmallTitle'
+import ScrollTopButton from '@/components/ScrollTopButton'
 
 const maitree = Maitree({
   weight: ['300'],
@@ -31,12 +32,21 @@ const Container = styled.footer`
   }
 
   .email {
-    color: var(--paragraph);
+    position: relative;
+    overflow: hidden;
+    margin-top: 1rem;
+    color: var(--main);
     font-size: 0.875rem;
     line-height: normal;
     letter-spacing: 0.035rem;
-    overflow: hidden;
-    position: relative;
+
+    @media screen and (min-width: 640px) {
+      margin-top: 0;
+    }
+
+    @media screen and (hover: hover) {
+      color: var(--paragraph);
+    }
 
     span {
       &.hide {
@@ -152,48 +162,51 @@ export default function Footer({ data }) {
   }, [])
 
   return (
-    <Container>
-      <div className='grid grid-cols-12 xl:grid-cols-24 gap-x-2.5'>
-        <div className='col-start-2 col-end-12 xl:col-start-3 xl:col-end-23 flex flex-col gap-y-10'>
-          <SmallTitle title={data.title} />
-          <div className='flex flex-col sm:flex-row sm:flex-wrap sm:justify-between sm:items-end'>
-            <div
-              ref={socials}
-              className={`${maitree.className} flex flex-col items-start socials`}
-            >
-              <Link
-                data-splitting='chars'
-                aria-label={data.linkedinText}
-                href={data.linkedinLink}
-                target='_blank'
+    <>
+      <ScrollTopButton />
+      <Container>
+        <div className='grid grid-cols-12 xl:grid-cols-24 gap-x-2.5'>
+          <div className='col-start-2 col-end-12 xl:col-start-3 xl:col-end-23 flex flex-col gap-y-10'>
+            <SmallTitle title={data.title} />
+            <div className='flex flex-col sm:flex-row sm:flex-wrap sm:justify-between sm:items-end'>
+              <div
+                ref={socials}
+                className={`${maitree.className} flex flex-col items-start socials`}
               >
-                {data.linkedinText}
-              </Link>
+                <Link
+                  data-splitting='chars'
+                  aria-label={data.linkedinText}
+                  href={data.linkedinLink}
+                  target='_blank'
+                >
+                  {data.linkedinText}
+                </Link>
+                <Link
+                  data-splitting='chars'
+                  aria-label={data.githubText}
+                  href={data.githubLink}
+                  target='_blank'
+                >
+                  {data.githubText}
+                </Link>
+              </div>
               <Link
-                data-splitting='chars'
-                aria-label={data.githubText}
-                href={data.githubLink}
-                target='_blank'
+                ref={contact}
+                className={`${nunitoSans.className} email`}
+                aria-label={data.email}
+                href={`mailto:${data.email}`}
               >
-                {data.githubText}
+                <span className='show' data-splitting='chars'>
+                  {data.email}
+                </span>
+                <span className='hide' data-splitting='chars'>
+                  {data.email}
+                </span>
               </Link>
             </div>
-            <Link
-              ref={contact}
-              className={`${nunitoSans.className} email`}
-              aria-label={data.email}
-              href={`mailto:${data.email}`}
-            >
-              <span className='show' data-splitting='chars'>
-                {data.email}
-              </span>
-              <span className='hide' data-splitting='chars'>
-                {data.email}
-              </span>
-            </Link>
           </div>
         </div>
-      </div>
-    </Container>
+      </Container>
+    </>
   )
 }
