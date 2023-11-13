@@ -22,20 +22,10 @@ const List = styled.ul`
 const Item = styled.li`
   display: grid;
   place-items: center;
-  width: 1.25rem;
-  height: 1.25rem;
   flex-shrink: 0;
   overflow: hidden;
-`
-
-const Icon = styled.div`
-  transition: transform 0.3s cubic-bezier(0.23, 1, 0.32, 1.65),
-    scale 0.3s cubic-bezier(0.23, 1, 0.32, 1.65);
-
-  &:hover {
-    transform: rotate(90deg);
-    scale: 1.2;
-  }
+  width: 1.25rem;
+  height: 1.25rem;
 `
 
 export default function SocialNetworks({ data }) {
@@ -81,6 +71,28 @@ export default function SocialNetworks({ data }) {
       duration: 1,
       delay: 5,
     })
+
+    items.forEach((item) => {
+      const icon = item.querySelector('a div')
+
+      item.onmouseenter = function () {
+        gsap.to(icon, {
+          duration: 0.3,
+          ease: 'back.out(4)',
+          scale: 1.1,
+          rotate: 90,
+        })
+      }
+
+      item.onmouseleave = function () {
+        gsap.to(icon, {
+          duration: 0.3,
+          ease: 'back.in(4)',
+          scale: 1,
+          rotate: 0,
+        })
+      }
+    })
   }, [])
 
   return (
@@ -98,7 +110,7 @@ export default function SocialNetworks({ data }) {
                     target='_blank'
                     aria-label={icon.title}
                   >
-                    <Icon>
+                    <div>
                       <ContentfulImage
                         src={icon.file.url}
                         width={icon.file.details.image.width}
@@ -106,7 +118,7 @@ export default function SocialNetworks({ data }) {
                         quality='100'
                         alt={icon.title}
                       />
-                    </Icon>
+                    </div>
                   </Link>
                 </div>
               </Item>
