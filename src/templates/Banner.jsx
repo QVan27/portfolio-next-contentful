@@ -28,13 +28,22 @@ const Section = styled.section`
     position: absolute;
     z-index: 1;
     inset: 0;
-    mix-blend-mode: color-dodge;
     overflow: hidden;
+    mix-blend-mode: difference;
 
     div {
+      margin-inline: auto;
       width: min(37.125rem, 100%);
       height: 100%;
-      margin-inline: auto;
+      filter: saturate(0);
+
+      @media screen and (hover: hover) {
+        transition: filter 0.5s ease-out;
+
+        &:hover {
+          filter: saturate(1);
+        }
+      }
     }
   }
 
