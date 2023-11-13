@@ -25,18 +25,21 @@ const Container = styled.footer`
     letter-spacing: 0.09rem;
     transition: all 0.3s ease-out;
 
-    .char {
-      transition: all 0.3 ease-out;
-    }
+    .char { transition: all 0.3 ease-out; }
   }
 
   .email {
-    color: var(--paragraph);
+    position: relative;
+    overflow: hidden;
+    margin-top: 1rem;
+    color: var(--main);
     font-size: 0.875rem;
     line-height: normal;
     letter-spacing: 0.035rem;
-    overflow: hidden;
-    position: relative;
+
+    @media screen and (min-width: 640px) { margin-top: 0; }
+
+    @media screen and (hover: hover) { color: var(--paragraph); }
 
     span {
       &.hide {
