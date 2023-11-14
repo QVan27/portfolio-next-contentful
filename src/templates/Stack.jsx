@@ -18,7 +18,17 @@ const Section = styled.section`
   position: relative;
   z-index: calc(var(--z-networks) + 1);
   padding: 6.25rem 0rem;
-  background-color: var(--primary-background);
+  background: var(--primary-background);
+  background: linear-gradient(
+    0deg,
+    rgba(22, 22, 26, 0) 0%,
+    rgba(22, 22, 26, 0.4962359943977591) 5%,
+    rgba(22, 22, 26, 1) 10%,
+    rgba(22, 22, 26, 1) 50%,
+    rgba(22, 22, 26, 1) 90%,
+    rgba(22, 22, 26, 0.4962359943977591) 95%,
+    rgba(22, 22, 26, 0) 100%
+  );
 `
 
 const List = styled.ul`
