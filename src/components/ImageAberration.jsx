@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import * as THREE from 'three'
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
 import styled from 'styled-components'
@@ -62,10 +62,20 @@ let easeFactor = 0.02
 
 function ImagePlane({ imgSrc }) {
   const meshRef = useRef()
-  const { gl, size, viewport } = useThree()
+  const { viewport } = useThree()
+  const [textureLoaded, setTextureLoaded] = useState(false)
+  const [texture, setTexture] = useState(null)
 
-  const texture = new THREE.TextureLoader().load(imgSrc)
-  const imageAspect = texture.image
+  useEffect(() => {
+    const loader = new THREE.TextureLoader()
+
+    loader.load(imgSrc, (loadedTexture) => {
+      setTexture(loadedTexture)
+      setTextureLoaded(true)
+    })
+  }, [imgSrc])
+  
+  const imageAspect = texture?.image
     ? texture.image.width / texture.image.height
     : 1
 
@@ -79,7 +89,7 @@ function ImagePlane({ imgSrc }) {
     planeHeight = viewport.height
   }
 
-  const handleMouseMove = (event) => {
+  const handleMouseMove = useCallback((event) => {
     const rect = event.target.getBoundingClientRect()
     const x = (event.clientX - rect.left) / rect.width
     const y = (event.clientY - rect.top) / rect.height
@@ -88,9 +98,9 @@ function ImagePlane({ imgSrc }) {
     targetMousePosition = { x, y }
     aberrationIntensity = 1
     easeFactor = 0.02
-  }
+  }, [])
 
-  const handleMouseEnter = (event) => {
+  const handleMouseEnter = useCallback((event) => {
     const rect = event.target.getBoundingClientRect()
     const x = (event.clientX - rect.left) / rect.width
     const y = (event.clientY - rect.top) / rect.height
@@ -98,12 +108,12 @@ function ImagePlane({ imgSrc }) {
     mousePosition = { x, y }
     targetMousePosition = { x, y }
     easeFactor = 0.02
-  }
+  }, [])
 
-  const handleMouseLeave = () => {
+  const handleMouseLeave = useCallback(() => {
     easeFactor = 0.05
     targetMousePosition = { ...prevMousePosition }
-  }
+  }, [])
 
   useEffect(() => {
     const canvasContainers = document.querySelectorAll(
@@ -121,13 +131,13 @@ function ImagePlane({ imgSrc }) {
     return () => {
       canvasContainers.forEach((container) => {
         const canvas = container.querySelector('canvas')
-  
+
         canvas.addEventListener('mousemove', handleMouseMove)
         canvas.addEventListener('mouseenter', handleMouseEnter)
         canvas.addEventListener('mouseleave', handleMouseLeave)
       })
     }
-  }, [])
+  }, [handleMouseEnter, handleMouseLeave, handleMouseMove])
 
   useFrame(() => {
     if (meshRef.current) {
@@ -146,6 +156,8 @@ function ImagePlane({ imgSrc }) {
       uniforms.u_aberrationIntensity.value = aberrationIntensity
     }
   })
+
+  if (!textureLoaded) return null
 
   return (
     <mesh ref={meshRef}>
