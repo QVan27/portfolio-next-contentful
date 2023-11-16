@@ -106,16 +106,26 @@ function ImagePlane({ imgSrc }) {
   }
 
   useEffect(() => {
-    const canvas = gl.domElement
+    const canvasContainers = document.querySelectorAll(
+      '.container-canvas__image-aberration'
+    )
 
-    canvas.addEventListener('mousemove', handleMouseMove)
-    canvas.addEventListener('mouseenter', handleMouseEnter)
-    canvas.addEventListener('mouseleave', handleMouseLeave)
+    canvasContainers.forEach((container) => {
+      const canvas = container.querySelector('canvas')
+
+      canvas.addEventListener('mousemove', handleMouseMove)
+      canvas.addEventListener('mouseenter', handleMouseEnter)
+      canvas.addEventListener('mouseleave', handleMouseLeave)
+    })
 
     return () => {
-      canvas.removeEventListener('mousemove', handleMouseMove)
-      canvas.removeEventListener('mouseenter', handleMouseEnter)
-      canvas.removeEventListener('mouseleave', handleMouseLeave)
+      canvasContainers.forEach((container) => {
+        const canvas = container.querySelector('canvas')
+  
+        canvas.addEventListener('mousemove', handleMouseMove)
+        canvas.addEventListener('mouseenter', handleMouseEnter)
+        canvas.addEventListener('mouseleave', handleMouseLeave)
+      })
     }
   }, [])
 
@@ -164,7 +174,7 @@ function ImagePlane({ imgSrc }) {
 
 export default function ImageAberration({ imgSrc }) {
   return (
-    <CanvasContainer>
+    <CanvasContainer className='container-canvas__image-aberration'>
       <Canvas>
         <ImagePlane imgSrc={imgSrc} />
       </Canvas>

@@ -1,10 +1,11 @@
 import React, { useRef, useEffect } from 'react'
 import styled from 'styled-components'
 import { Anton, Maitree } from 'next/font/google'
-import Diss from '@/assets/images/distortions/diss.png'
-import hoverEffect from 'hover-effect'
+// import Diss from '@/assets/images/distortions/diss.png'
+// import hoverEffect from 'hover-effect'
 import RichText from '@/components/RichText'
 import gsap from 'gsap'
+import AnimatedComponent from '@/components/ImageAberration'
 
 const anton = Anton({
   weight: ['400'],
@@ -24,7 +25,20 @@ const Section = styled.section`
     clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
   }
 
-  .distortion {
+  .aberration-container {
+    position: absolute;
+    z-index: calc(var(--z-networks) + 1);
+    inset: 0;
+    overflow: hidden;
+    mix-blend-mode: difference;
+
+    div {
+      margin-inline: auto;
+      width: min(37.125rem, 100%);
+      height: 100%;
+    }
+  }
+  /* .distortion {
     position: absolute;
     z-index: 1;
     inset: 0;
@@ -45,16 +59,16 @@ const Section = styled.section`
         }
       }
     }
-  }
+  } */
 
   .content {
     position: relative;
     z-index: 2;
     line-height: normal;
+    pointer-events: none;
 
     span,
     p {
-      pointer-events: none;
     }
 
     .title-full {
@@ -109,22 +123,22 @@ const Section = styled.section`
 `
 
 export default function Banner({ data }) {
-  const distortion = useRef(null)
-  const imageDistortion1 = data.imagesDistortions[0].fields.file.url
-  const imageDistortion2 = data.imagesDistortions[1].fields.file.url
+  // const distortion = useRef(null)
+  // const imageDistortion1 = data.imagesDistortions[0].fields.file.url
+  // const imageDistortion2 = data.imagesDistortions[1].fields.file.url
 
-  // https://github.com/robin-dela/hover-effect
-  useEffect(() => {
-    new hoverEffect({
-      parent: distortion.current,
-      intensity: 0.2,
-      image1: imageDistortion1,
-      image2: imageDistortion2,
-      displacementImage: Diss.src,
-      imagesRatio: 1 / 0.8,
-      easing: 'power4.out',
-    })
-  }, [])
+  // // https://github.com/robin-dela/hover-effect
+  // useEffect(() => {
+  //   new hoverEffect({
+  //     parent: distortion.current,
+  //     intensity: 0.2,
+  //     image1: imageDistortion1,
+  //     image2: imageDistortion2,
+  //     displacementImage: Diss.src,
+  //     imagesRatio: 1 / 0.8,
+  //     easing: 'power4.out',
+  //   })
+  // }, [])
 
   const distortionRef = useRef(null)
   const titleRef = useRef(null)
@@ -311,8 +325,11 @@ export default function Banner({ data }) {
 
   return (
     <Section>
-      <div className='distortion' ref={distortionRef}>
+      {/* <div className='distortion' ref={distortionRef}>
         <div ref={distortion}></div>
+      </div> */}
+      <div className='aberration-container' ref={distortionRef}>
+        <AnimatedComponent imgSrc={data.imagesDistortions[0].fields.file.url} />
       </div>
       <div className='min-h-screen grid grid-cols-12 xl:grid-cols-24 gap-x-2.5 items-center'>
         <h1
