@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import * as THREE from 'three'
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
 import styled from 'styled-components'
@@ -81,7 +81,7 @@ function ImagePlane({ imgSrc }) {
 
   let planeWidth, planeHeight
 
-  if (viewport.width / viewport.height > imageAspect) {
+  if (viewport.width / viewport.height < imageAspect) {
     planeWidth = viewport.width
     planeHeight = viewport.width / imageAspect
   } else {
