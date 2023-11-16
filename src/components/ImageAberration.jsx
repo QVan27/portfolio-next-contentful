@@ -1,6 +1,6 @@
-import { useEffect, useRef } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import * as THREE from 'three'
-import { Canvas, useFrame, useThree } from 'react-three-fiber'
+import { Canvas, useFrame, useThree } from '@react-three/fiber'
 import styled from 'styled-components'
 
 const vertexShader = `
@@ -62,16 +62,26 @@ let easeFactor = 0.02
 
 function ImagePlane({ imgSrc }) {
   const meshRef = useRef()
-  const { gl, size, viewport } = useThree()
+  const { viewport } = useThree()
+  const [textureLoaded, setTextureLoaded] = useState(false)
+  const [texture, setTexture] = useState(null)
 
-  const texture = new THREE.TextureLoader().load(imgSrc)
-  const imageAspect = texture.image
+  useEffect(() => {
+    const loader = new THREE.TextureLoader()
+
+    loader.load(imgSrc, (loadedTexture) => {
+      setTexture(loadedTexture)
+      setTextureLoaded(true)
+    })
+  }, [imgSrc])
+  
+  const imageAspect = texture?.image
     ? texture.image.width / texture.image.height
     : 1
 
   let planeWidth, planeHeight
 
-  if (viewport.width / viewport.height > imageAspect) {
+  if (viewport.width / viewport.height < imageAspect) {
     planeWidth = viewport.width
     planeHeight = viewport.width / imageAspect
   } else {
@@ -79,7 +89,7 @@ function ImagePlane({ imgSrc }) {
     planeHeight = viewport.height
   }
 
-  const handleMouseMove = (event) => {
+  const handleMouseMove = useCallback((event) => {
     const rect = event.target.getBoundingClientRect()
     const x = (event.clientX - rect.left) / rect.width
     const y = (event.clientY - rect.top) / rect.height
@@ -88,9 +98,9 @@ function ImagePlane({ imgSrc }) {
     targetMousePosition = { x, y }
     aberrationIntensity = 1
     easeFactor = 0.02
-  }
+  }, [])
 
-  const handleMouseEnter = (event) => {
+  const handleMouseEnter = useCallback((event) => {
     const rect = event.target.getBoundingClientRect()
     const x = (event.clientX - rect.left) / rect.width
     const y = (event.clientY - rect.top) / rect.height
@@ -98,26 +108,36 @@ function ImagePlane({ imgSrc }) {
     mousePosition = { x, y }
     targetMousePosition = { x, y }
     easeFactor = 0.02
-  }
+  }, [])
 
-  const handleMouseLeave = () => {
+  const handleMouseLeave = useCallback(() => {
     easeFactor = 0.05
     targetMousePosition = { ...prevMousePosition }
-  }
+  }, [])
 
   useEffect(() => {
-    const canvas = gl.domElement
+    const canvasContainers = document.querySelectorAll(
+      '.container-canvas__image-aberration'
+    )
 
-    canvas.addEventListener('mousemove', handleMouseMove)
-    canvas.addEventListener('mouseenter', handleMouseEnter)
-    canvas.addEventListener('mouseleave', handleMouseLeave)
+    canvasContainers.forEach((container) => {
+      const canvas = container.querySelector('canvas')
+
+      canvas.addEventListener('mousemove', handleMouseMove)
+      canvas.addEventListener('mouseenter', handleMouseEnter)
+      canvas.addEventListener('mouseleave', handleMouseLeave)
+    })
 
     return () => {
-      canvas.removeEventListener('mousemove', handleMouseMove)
-      canvas.removeEventListener('mouseenter', handleMouseEnter)
-      canvas.removeEventListener('mouseleave', handleMouseLeave)
+      canvasContainers.forEach((container) => {
+        const canvas = container.querySelector('canvas')
+
+        canvas.addEventListener('mousemove', handleMouseMove)
+        canvas.addEventListener('mouseenter', handleMouseEnter)
+        canvas.addEventListener('mouseleave', handleMouseLeave)
+      })
     }
-  }, [])
+  }, [handleMouseEnter, handleMouseLeave, handleMouseMove])
 
   useFrame(() => {
     if (meshRef.current) {
@@ -136,6 +156,8 @@ function ImagePlane({ imgSrc }) {
       uniforms.u_aberrationIntensity.value = aberrationIntensity
     }
   })
+
+  if (!textureLoaded) return null
 
   return (
     <mesh ref={meshRef}>
@@ -164,7 +186,7 @@ function ImagePlane({ imgSrc }) {
 
 export default function ImageAberration({ imgSrc }) {
   return (
-    <CanvasContainer>
+    <CanvasContainer className='container-canvas__image-aberration'>
       <Canvas>
         <ImagePlane imgSrc={imgSrc} />
       </Canvas>

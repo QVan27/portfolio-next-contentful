@@ -1,10 +1,9 @@
 import React, { useRef, useEffect } from 'react'
-import styled from 'styled-components'
 import { Anton, Maitree } from 'next/font/google'
-import Diss from '@/assets/images/distortions/diss.png'
-import hoverEffect from 'hover-effect'
-import RichText from '@/components/RichText'
 import gsap from 'gsap'
+import styled from 'styled-components'
+import RichText from '@/components/RichText'
+import AnimatedComponent from '@/components/ImageAberration'
 
 const anton = Anton({
   weight: ['400'],
@@ -24,26 +23,18 @@ const Section = styled.section`
     clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
   }
 
-  .distortion {
+  .aberration-container {
+    display: block;
     position: absolute;
-    z-index: 1;
+    z-index: calc(var(--z-networks) - 1);
     inset: 0;
     overflow: hidden;
-    mix-blend-mode: difference;
+    mix-blend-mode: color-dodge;
 
     div {
       margin-inline: auto;
       width: min(37.125rem, 100%);
       height: 100%;
-      filter: saturate(0);
-
-      @media screen and (hover: hover) {
-        transition: filter 0.5s ease-out;
-
-        &:hover {
-          filter: saturate(1);
-        }
-      }
     }
   }
 
@@ -51,7 +42,7 @@ const Section = styled.section`
     position: relative;
     z-index: 2;
     line-height: normal;
-
+    
     span,
     p {
       pointer-events: none;
@@ -109,24 +100,7 @@ const Section = styled.section`
 `
 
 export default function Banner({ data }) {
-  const distortion = useRef(null)
-  const imageDistortion1 = data.imagesDistortions[0].fields.file.url
-  const imageDistortion2 = data.imagesDistortions[1].fields.file.url
-
-  // https://github.com/robin-dela/hover-effect
-  useEffect(() => {
-    new hoverEffect({
-      parent: distortion.current,
-      intensity: 0.2,
-      image1: imageDistortion1,
-      image2: imageDistortion2,
-      displacementImage: Diss.src,
-      imagesRatio: 1 / 0.8,
-      easing: 'power4.out',
-    })
-  }, [])
-
-  const distortionRef = useRef(null)
+  const aberrationRef = useRef(null)
   const titleRef = useRef(null)
   const firstBigTextRef = useRef(null)
   const secondBigTextRef = useRef(null)
@@ -150,7 +124,7 @@ export default function Banner({ data }) {
             const tl = gsap.timeline()
             const charsRichText = richTextRef.current.querySelectorAll('.char')
             gsap.set(charsRichText, { opacity: 0 })
-            gsap.set(distortionRef.current, { opacity: 0 })
+            gsap.set(aberrationRef.current, { opacity: 0 })
 
             tl.to(
               charsRichText,
@@ -162,7 +136,7 @@ export default function Banner({ data }) {
               },
               3
             ).to(
-              distortionRef.current,
+              aberrationRef.current,
               {
                 opacity: 1,
                 ease: 'sine.inOut',
@@ -181,7 +155,7 @@ export default function Banner({ data }) {
               secondBigTextRef.current.querySelectorAll('.char')
 
             gsap.set(charsRichText, { opacity: 0 })
-            gsap.set(distortionRef.current, { opacity: 0 })
+            gsap.set(aberrationRef.current, { opacity: 0 })
             gsap.set([charsFirstBigText, charsSecondBigText], {
               y: 100,
               opacity: 0,
@@ -198,7 +172,7 @@ export default function Banner({ data }) {
               3
             )
               .to(
-                distortionRef.current,
+                aberrationRef.current,
                 {
                   opacity: 1,
                   ease: 'sine.inOut',
@@ -242,7 +216,7 @@ export default function Banner({ data }) {
               thirdBigTextRef.current.querySelectorAll('.char')
 
             gsap.set(charsRichText, { opacity: 0 })
-            gsap.set(distortionRef.current, { opacity: 0 })
+            gsap.set(aberrationRef.current, { opacity: 0 })
             gsap.set(
               [charsFirstBigText, charsSecondBigText, charsThirdBigText],
               {
@@ -262,7 +236,7 @@ export default function Banner({ data }) {
               3
             )
               .to(
-                distortionRef.current,
+                aberrationRef.current,
                 {
                   opacity: 1,
                   ease: 'sine.inOut',
@@ -311,8 +285,8 @@ export default function Banner({ data }) {
 
   return (
     <Section>
-      <div className='distortion' ref={distortionRef}>
-        <div ref={distortion}></div>
+      <div className='aberration-container' ref={aberrationRef}>
+        <AnimatedComponent imgSrc={data.imagesDistortions[0].fields.file.url} />
       </div>
       <div className='min-h-screen grid grid-cols-12 xl:grid-cols-24 gap-x-2.5 items-center'>
         <h1

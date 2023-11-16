@@ -13,6 +13,7 @@
     "@contentful/rich-text-types": "^16.3.0",
     "@ducanh2912/next-pwa": "^9.7.2",
     "@react-three/drei": "^9.88.15",
+    "@react-three/fiber": "^8.15.11",
     "@studio-freight/react-lenis": "^0.0.36",
     "@studio-freight/tempus": "^0.0.38",
     "atropos": "^2.0.2",
