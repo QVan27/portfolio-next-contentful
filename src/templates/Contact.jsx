@@ -177,7 +177,7 @@ export default function Contact({ data }) {
   useEffect(() => {
     area.current.addEventListener('mousemove', callParallax)
     area.current.addEventListener('mouseleave', resetParallax)
-  }, [])
+  })
 
   useEffect(() => {
     gsap.set('.atropos', { opacity: 0, scale: 0, filter: 'blur(50px)' })

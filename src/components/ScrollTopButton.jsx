@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useCallback } from 'react'
 import styled from 'styled-components'
 import gsap from 'gsap'
 import { useLenis } from '@studio-freight/react-lenis'
@@ -103,13 +103,9 @@ export default function ScrollTopButton() {
     })
   }
 
-  const callParallax = (e) => {
+  const callParallax = useCallback((e) => {
     button.current && parallaxIt(e, button, 0.8)
-  }
-
-  const resetParallax = () => {
-    button.current && resetParallaxTween(button)
-  }
+  }, [button])
 
   const resetParallaxTween = (ref) => {
     gsap.to(ref.current, {
@@ -119,6 +115,10 @@ export default function ScrollTopButton() {
       ease: 'back',
     })
   }
+
+  const resetParallax = useCallback(() => {
+    button.current && resetParallaxTween(button)
+  }, [button])
 
   useEffect(() => {
     ScrollTrigger.refresh()
@@ -132,7 +132,7 @@ export default function ScrollTopButton() {
       if (lenis && lenis.scrollTo) lenis.scrollTo(0)
       else console.error('lenis or lenis.scrollTo is undefined')
     })
-  }, [lenis])
+  }, [lenis, callParallax, resetParallax])
 
   return (
     <Container
