@@ -1,6 +1,6 @@
 import Head from 'next/head'
 
-const title = `Quentin Vannarath - Développeur Web Fullstack | Art'vannah`
+const title = `Quentin Vannarath - Développeur Web Fullstack orienté Front-End | Art'vannah`
 const url = 'https://artvannah.vercel.app/'
 const description = `Découvrez l'univers créatif de Quentin Vannarath, développeur web Fullstack orienté Frontend. Explorez mes projets et réalisations au service de l'innovation numérique. Art'vannah - Transformez votre vision en réalité.`
 const author = 'Quentin Vannarath'
