@@ -1,7 +1,7 @@
 import Head from 'next/head'
 
 const title = `Quentin Vannarath - Développeur Web Fullstack orienté Front-End | Art'vannah`
-const url = 'https://artvannah.vercel.app/'
+const url = 'https://artvannah.fr/'
 const description = `Découvrez l'univers créatif de Quentin Vannarath, développeur web Fullstack orienté Frontend. Explorez mes projets et réalisations au service de l'innovation numérique. Art'vannah - Transformez votre vision en réalité.`
 const author = 'Quentin Vannarath'
 const keywords = `Développeur Web Fullstack Frontend, Quentin Vannarath, Art'vannah, Conception de Sites Web, Développement Frontend, Portfolio de Développeur Web, Projets Web, Innovation Numérique`
@@ -25,11 +25,17 @@ export default function HeadData() {
       Facebook Open Graph meta tags
         documentation: https://developers.facebook.com/docs/sharing/opengraph */}
       <meta property='og:title' content={title} />
-      <meta property='og:type' content='site' />
+      <meta property='og:type' content='website' />
       <meta property='og:url' content={url} />
       <meta property='og:image' content={'/icons/share.png'} />
       <meta property='og:site_name' content={title} />
       <meta property='og:description' content={description} />
+      {/* Twitter Summary card */}
+      <meta property='twitter:card' content='summary_large_image' />
+      <meta property='twitter:url' content={url} />
+      <meta property='twitter:title' content={title} />
+      <meta property='twitter:description' content={description} />
+      <meta property='twitter:image' content={'/icons/share.png'} />
       {/* Favicons */}
       <link rel='shortcut icon' href='/icons/favicon.ico' />
       <link
