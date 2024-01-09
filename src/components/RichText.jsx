@@ -1,3 +1,4 @@
+import React from 'react'
 import { BLOCKS, INLINES, MARKS } from '@contentful/rich-text-types'
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
 import Link from 'next/link'
@@ -77,7 +78,12 @@ const options = {
       )
     },
   },
-  renderText: text => text.split('\n').flatMap((text, i) => [i > 0 && <br />, text])
+  renderText: (text, node) => {
+    return text.split('\n').flatMap((text, i) => [
+      i > 0 && <br key={`${node?.nodeType || 'default'}_br_${i}`} />,
+      <React.Fragment key={`${node?.nodeType || 'default'}_text_${i}`}>{text}</React.Fragment>,
+    ]);
+  },
 }
 
 const RichText = ({ content }) => {
