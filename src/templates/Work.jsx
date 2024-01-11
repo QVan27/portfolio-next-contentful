@@ -132,14 +132,21 @@ const List = styled.ul`
     }
 
     a {
-      color: rgba(255, 99, 0, 0.8);
-      background: linear-gradient(to right, var(--highlight), var(--highlight)) no-repeat;
-      -webkit-background-clip: text;
-      background-clip: text;
-      background-size: 0%;
-      transition: background-size cubic-bezier(0.1, 0.5, 0.5, 1) 0.5s;
+      color: var(--highlight);
 
       @media screen and (hover: hover) {
+        color: rgba(255, 99, 0, 0.8);
+        background: linear-gradient(
+            to right,
+            var(--highlight),
+            var(--highlight)
+          )
+          no-repeat;
+        -webkit-background-clip: text;
+        background-clip: text;
+        background-size: 0%;
+        transition: background-size cubic-bezier(0.1, 0.5, 0.5, 1) 0.5s;
+
         &:hover {
           background-size: 100%;
         }
