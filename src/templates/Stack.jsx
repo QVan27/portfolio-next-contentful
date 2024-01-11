@@ -59,12 +59,20 @@ const List = styled.ul`
     }
 
     h3 {
-      color: var(--main);
+      /* color: var(--main); */
+      color: rgb(255, 255, 254, 0.2);
+
       font-size: var(--font__titleStack);
       font-style: normal;
       line-height: 5.625rem;
       letter-spacing: 0.24rem;
-      transition: color 0.5s ease-out;
+      /* transition: color 0.5s ease-out; */
+
+      background: linear-gradient(to right, var(--main), var(--main)) no-repeat;
+      -webkit-background-clip: text;
+      background-clip: text;
+      background-size: 0%;
+      transition: background-size cubic-bezier(0.1, 0.5, 0.5, 1) 0.5s, color 0.5s ease-out;
     }
 
     p {
@@ -156,19 +164,18 @@ export default function Stack({ data }) {
       const listItems = listRef.current.querySelectorAll('li')
 
       listItems.forEach((item) => {
-        const lines = item.querySelectorAll('.line')
+        const line = item.querySelector('.line')
+        const title = item.querySelector('h3')
 
-        lines.forEach((line) => {
-          gsap.set(line, { width: 0 })
-          gsap.to(line, {
-            scrollTrigger: {
-              trigger: line,
-              start: 'top bottom',
-              end: 'bottom 80%',
-              scrub: 2,
-            },
-            width: '100%',
-          })
+        gsap.set(line, { width: 0 })
+        gsap.to(line, {
+          scrollTrigger: {
+            trigger: line,
+            start: 'top bottom',
+            end: 'bottom 80%',
+            scrub: 2,
+          },
+          width: '100%',
         })
 
         gsap.set(item, { opacity: 0 })
@@ -181,6 +188,16 @@ export default function Stack({ data }) {
             scrub: 2,
           },
           opacity: 1,
+        })
+
+        gsap.to(title, {
+          backgroundSize: '100%',
+          scrollTrigger: {
+            trigger: title,
+            start: 'top bottom',
+            end: 'bottom 75%',
+            scrub: true,
+          },
         })
       })
 
