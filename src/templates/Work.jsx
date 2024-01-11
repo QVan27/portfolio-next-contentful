@@ -1,23 +1,24 @@
 import React, { useEffect, useRef } from 'react'
 import styled from 'styled-components'
-import { Anton, Maitree } from 'next/font/google'
+import { Anton, Nunito_Sans } from 'next/font/google'
 import Link from 'next/link'
-import ContentfulImage from '@/components/ContentfulImage'
 import gsap from 'gsap'
 import SmallTitle from '@/components/SmallTitle'
+import ImageAberration from '@/components/ImageAberration'
 
 const anton = Anton({
   weight: ['400'],
   subsets: ['latin'],
 })
 
-const maitree = Maitree({
-  weight: ['300'],
+const nunito_sans = Nunito_Sans({
+  weight: ['400'],
   subsets: ['latin'],
 })
 
 const Section = styled.section`
   padding: 6.25rem 0rem;
+  overflow: hidden;
 `
 
 const List = styled.ul`
@@ -27,74 +28,121 @@ const List = styled.ul`
     display: flex;
     position: relative;
     flex-direction: column;
-    padding: 1.875rem 0.9375rem;
+    padding: 1.875rem 0;
 
     @media screen and (min-width: 1024px) {
+      flex-wrap: wrap;
       flex-direction: row;
       align-items: center;
       justify-content: space-between;
     }
 
     &__img {
-      display: none;
+      display: block;
+      border-radius: 0.5rem;
+      margin-bottom: 1.875rem;
+      overflow: hidden;
+      border: 1px solid var(--paragraph);
+      height: 10.5rem;
 
-      @media screen and (hover: hover) {
-        display: block;
-        position: absolute;
-        inset: 0;
-        z-index: 3;
-        overflow: hidden;
-        pointer-events: none;
+      @media screen and (min-width: 768px) {
+        width: 100%;
+        height: 21rem;
+      }
 
-        &--reveal {
-          visibility: hidden;
-          position: relative;
-          width: 100%;
-          height: 100%;
-          overflow: hidden;
+      @media screen and (min-width: 1024px) {
+        width: 100%;
+        height: 28.5rem;
+      }
 
-          &:before {
-            content: '';
-            position: absolute;
-            z-index: 1;
-            inset: 0;
-            background: linear-gradient(
-              0deg,
-              rgba(22, 22, 26, 0.75) 0%,
-              rgba(22, 22, 26, 0.75) 100%
-            );
-          }
+      @media screen and (min-width: 1280px) {
+        height: 26vw;
+      }
+    }
 
-          img {
+    &__head {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+
+      &-title {
+        display: inline-flex;
+        gap: 0.5rem;
+        align-items: flex-end;
+
+        h3 {
+          color: rgb(255, 255, 254, 0.2);
+          font-size: 1.5rem;
+          line-height: normal;
+          letter-spacing: 0.075rem;
+          text-transform: uppercase;
+          background: linear-gradient(to right, var(--main), var(--main))
+            no-repeat;
+          -webkit-background-clip: text;
+          background-clip: text;
+          background-size: 0%;
+          transition: background-size cubic-bezier(0.1, 0.5, 0.5, 1) 0.5s;
+
+          @media screen and (hover: hover) {
             position: relative;
-            height: 100%;
-            width: 100%;
-            object-fit: cover;
-            transform-origin: top;
+            z-index: 3;
           }
+        }
+
+        a {
+          letter-spacing: 0.075rem;
+          margin-bottom: 0.2rem;
+          font-size: 10px;
+          text-transform: uppercase;
         }
       }
     }
 
-    h3 {
-      color: var(--main);
-      font-size: 1.5rem;
-      letter-spacing: 0.06rem;
-    }
+    &__content {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      margin-top: 1.25rem;
 
-    p {
-      color: var(--highlight);
-      font-size: 0.75rem;
-      letter-spacing: 0.075rem;
-    }
+      @media screen and (min-width: 1024px) {
+        margin-top: 0;
+        width: 20rem;
+      }
 
-    h3,
-    p {
-      @media screen and (hover: hover) {
-        position: relative;
-        z-index: 3;
+      span {
+        color: var(--main);
+        font-size: var(--font__title);
+        line-height: normal;
+        letter-spacing: 0.075rem;
+        text-transform: uppercase;
+      }
+
+      p {
         color: var(--paragraph);
-        transition: color 0.5s ease-out;
+        font-size: 0.75rem;
+        letter-spacing: 0.075rem;
+
+        @media screen and (hover: hover) {
+          position: relative;
+          z-index: 3;
+          color: var(--paragraph);
+          transition: color 0.5s ease-out;
+        }
+      }
+    }
+
+    a {
+      color: rgba(255, 99, 0, 0.8);
+      background: linear-gradient(to right, var(--highlight), var(--highlight)) no-repeat;
+      -webkit-background-clip: text;
+      background-clip: text;
+      background-size: 0%;
+      transition: background-size cubic-bezier(0.1, 0.5, 0.5, 1) 0.5s;
+
+      @media screen and (hover: hover) {
+        &:hover {
+          background-size: 100%;
+        }
       }
     }
   }
@@ -107,111 +155,54 @@ const List = styled.ul`
 `
 
 export default function Work({ data, items }) {
-  const listRef = useRef(null)
-  const charsRefs = useRef([])
+  const liRef = useRef(null)
 
   useEffect(() => {
-    if (listRef && charsRefs.current.length === 0) {
-      import('splitting').then(({ default: Splitting }) => {
-        Splitting()
+    const li = liRef.current.querySelectorAll('li')
 
-        const li = listRef.current.querySelectorAll('li')
+    li.forEach((item) => {
+      const title = item.querySelector('h3')
+      const line = item.querySelector('.line')
 
-        li.forEach((item) => {
-          const chars = item.querySelectorAll('.char')
-          const text = item.querySelector('p')
-          const reveal = item.querySelector('.tech__img--reveal')
-          const image = reveal.querySelector('img')
-          const tl = gsap.timeline({ paused: true })
-          const lines = item.querySelectorAll('.line')
-
-          charsRefs.current.push(chars)
-
-          item.addEventListener('mouseenter', () => {
-            tl.clear()
-            tl.set(reveal, { autoAlpha: 1 })
-            tl.fromTo(
-              chars,
-              {
-                color: 'var(--paragraph)',
-              },
-              {
-                color: 'var(--main)',
-                stagger: 0.03,
-                ease: 'linear',
-              }
-            )
-            tl.fromTo(
-              reveal,
-              {
-                yPercent: -100,
-              },
-              {
-                yPercent: 0,
-                duration: 1.5,
-                ease: 'power4.out',
-              },
-              0
-            )
-            tl.fromTo(
-              image,
-              {
-                yPercent: 100,
-                scale: 1.3,
-              },
-              {
-                yPercent: 0,
-                scale: 1,
-                duration: 1.5,
-                delay: -1.5,
-                ease: 'power4.out',
-              }
-            )
-            tl.fromTo(
-              text,
-              {
-                color: 'var(--paragraph)',
-              },
-              {
-                color: 'var(--highlight)',
-                ease: 'sine.out',
-              },
-              0.5
-            )
-            tl.play()
-          })
-
-          item.addEventListener('mouseleave', () => {
-            tl.reverse()
-          })
-
-          lines.forEach((line) => {
-            gsap.set(line, { width: 0 })
-            gsap.to(line, {
-              scrollTrigger: {
-                trigger: line,
-                start: 'top bottom',
-                end: 'bottom 80%',
-                scrub: 2,
-              },
-              width: '100%',
-            })
-          })
-
-          gsap.set(item, { opacity: 0 })
-
-          gsap.to(item, {
-            scrollTrigger: {
-              trigger: item,
-              start: 'top bottom',
-              end: 'bottom 80%',
-              scrub: 2,
-            },
-            opacity: 1,
-          })
-        })
+      gsap.set(line, { width: 0 })
+      gsap.to(line, {
+        scrollTrigger: {
+          trigger: line,
+          start: 'top bottom',
+          end: 'bottom bottom',
+          scrub: 2,
+        },
+        width: '100%',
       })
-    }
+
+      gsap.to(title, {
+        backgroundSize: '100%',
+        scrollTrigger: {
+          trigger: title,
+          start: 'top bottom',
+          end: 'bottom 85%',
+          scrub: true,
+        },
+      })
+
+      const direction = item.classList.contains('right') ? 100 : -100
+
+      gsap.set(item, {
+        x: direction,
+        opacity: 0,
+      })
+
+      gsap.to(item, {
+        x: 0,
+        opacity: 1,
+        scrollTrigger: {
+          trigger: item,
+          start: 'top bottom',
+          end: 'bottom 90%',
+          scrub: 1,
+        },
+      })
+    })
   }, [])
 
   return (
@@ -222,8 +213,8 @@ export default function Work({ data, items }) {
         </div>
       </div>
       <List
-        ref={listRef}
-        className='grid grid-cols-12 xl:grid-cols-24 gap-x-2.5'
+        ref={liRef}
+        className='grid grid-cols-12 xl:grid-cols-24 gap-x-2.5 xl:gap-16'
       >
         {items.map((item, i) => {
           const fields = item.fields
@@ -232,31 +223,53 @@ export default function Work({ data, items }) {
           return (
             <li
               key={i}
-              className='col-start-2 col-end-12 xl:col-start-5 xl:col-end-21 z-20'
+              className={`col-start-2 col-end-12 ${
+                i % 2 !== 0
+                  ? 'xl:col-start-9 xl:col-end-21 right'
+                  : 'xl:col-start-5 xl:col-end-17 left'
+              } z-20`}
             >
-              <Link
-                aria-label={fields.title + ' ' + fields.stack}
-                target='_blank'
-                href={fields.link}
-              >
+              <div>
                 <div className='tech'>
                   <div className='tech__img'>
-                    <div className='tech__img--reveal'>
-                      <ContentfulImage
-                        src={image.file.url}
-                        width={image.file.details.image.width}
-                        height={image.file.details.image.height}
-                        quality='100'
-                        alt={image.title}
-                      />
-                    </div>
+                    <ImageAberration
+                      imgSrc={image.file.url}
+                      id={`work-${i}`}
+                      cover
+                    />
                   </div>
-                  <h3 data-splitting='chars' className={`${maitree.className}`}>
-                    {fields.title}
-                  </h3>
-                  <p className={`${anton.className}`}>{fields.stack}</p>
+                  <div className='tech__head'>
+                    <div className='tech__head-title'>
+                      <h3 className={`${anton.className}`}>{fields.title}</h3>
+                      <Link
+                        aria-label={fields.title}
+                        target='_blank'
+                        rel='noopener noreferrer'
+                        href={fields.link}
+                        className={`${nunito_sans.className} seeMore`}
+                      >
+                        see more
+                      </Link>
+                    </div>
+                    {fields.digitalCover && (
+                      <span className={`${nunito_sans.className}`}>
+                        made with{' '}
+                        <Link
+                          href='https://digital-cover.fr/'
+                          target='_blank'
+                          rel='noopener noreferrer'
+                        >
+                          Digital Cover
+                        </Link>
+                      </span>
+                    )}
+                  </div>
+                  <div className='tech__content'>
+                    <span className={`${anton.className}`}>Technologies :</span>
+                    <p className={`${nunito_sans.className}`}>{fields.stack}</p>
+                  </div>
                 </div>
-              </Link>
+              </div>
               <div className='line'></div>
             </li>
           )

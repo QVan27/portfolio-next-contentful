@@ -4,7 +4,7 @@ import gsap from 'gsap'
 import styled from 'styled-components'
 import RichText from '@/components/RichText'
 import SmallTitle from '@/components/SmallTitle'
-import AnimatedComponent from '@/components/ImageAberration'
+import ImageAberration from '@/components/ImageAberration'
 
 const nunitoSans = Nunito_Sans({
   weight: ['300'],
@@ -75,7 +75,7 @@ export default function About({ data }) {
       <div className='grid grid-cols-12 lg:grid-cols-24 gap-x-2.5 items-center'>
         <div className='col-start-2 col-end-12 lg:col-start-3 lg:col-end-11 h-full lg:relative'>
           <div className='aberration-container'>
-            <AnimatedComponent imgSrc={data.image.fields.file.url} />
+            <ImageAberration imgSrc={data.image.fields.file.url} id={'about'} />
           </div>
         </div>
         <div className='content col-start-2 col-end-12 lg:col-start-12 lg:col-end-23 flex flex-col gap-y-5'>

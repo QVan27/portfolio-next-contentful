@@ -3,7 +3,7 @@ import { Anton, Maitree } from 'next/font/google'
 import gsap from 'gsap'
 import styled from 'styled-components'
 import RichText from '@/components/RichText'
-import AnimatedComponent from '@/components/ImageAberration'
+import ImageAberration from '@/components/ImageAberration'
 
 const anton = Anton({
   weight: ['400'],
@@ -286,7 +286,7 @@ export default function Banner({ data }) {
   return (
     <Section>
       <div className='aberration-container' ref={aberrationRef}>
-        <AnimatedComponent imgSrc={data.imagesDistortions[0].fields.file.url} />
+        <ImageAberration imgSrc={data.imagesDistortions[0].fields.file.url} id={'banner'} />
       </div>
       <div className='min-h-screen grid grid-cols-12 xl:grid-cols-24 gap-x-2.5 items-center'>
         <h1

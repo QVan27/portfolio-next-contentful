@@ -45,6 +45,10 @@ const CanvasContainer = styled.div`
   height: 100%;
   filter: saturate(0);
 
+  ${({ $cover }) => $cover && `
+    filter: saturate(1);
+  `}
+
   @media screen and (hover: hover) {
     transition: filter 0.8s ease-out;
 
@@ -54,13 +58,13 @@ const CanvasContainer = styled.div`
   }
 `
 
-let mousePosition = { x: 0.5, y: 0.5 }
-let prevMousePosition = { x: 0.5, y: 0.5 }
-let targetMousePosition = { x: 0.5, y: 0.5 }
-let aberrationIntensity = 0
-let easeFactor = 0.02
+function ImagePlane({ imgSrc, id, cover }) {
+  const mousePosition = useRef({ x: 0.5, y: 0.5 })
+  const prevMousePosition = useRef({ x: 0.5, y: 0.5 })
+  const targetMousePosition = useRef({ x: 0.5, y: 0.5 })
+  const aberrationIntensity = useRef(0)
+  const easeFactor = useRef(0.02)
 
-function ImagePlane({ imgSrc }) {
   const meshRef = useRef()
   const { viewport } = useThree()
   const [textureLoaded, setTextureLoaded] = useState(false)
@@ -74,19 +78,29 @@ function ImagePlane({ imgSrc }) {
       setTextureLoaded(true)
     })
   }, [imgSrc])
-  
+
   const imageAspect = texture?.image
     ? texture.image.width / texture.image.height
     : 1
 
   let planeWidth, planeHeight
 
-  if (viewport.width / viewport.height < imageAspect) {
-    planeWidth = viewport.width
-    planeHeight = viewport.width / imageAspect
+  if (cover) {
+    if (viewport.width / viewport.height > imageAspect) {
+      planeWidth = viewport.width
+      planeHeight = viewport.width / imageAspect
+    } else {
+      planeWidth = viewport.height * imageAspect
+      planeHeight = viewport.height
+    }
   } else {
-    planeWidth = viewport.height * imageAspect
-    planeHeight = viewport.height
+    if (viewport.width / viewport.height < imageAspect) {
+      planeWidth = viewport.width
+      planeHeight = viewport.width / imageAspect
+    } else {
+      planeWidth = viewport.height * imageAspect
+      planeHeight = viewport.height
+    }
   }
 
   const handleMouseMove = useCallback((event) => {
@@ -94,10 +108,10 @@ function ImagePlane({ imgSrc }) {
     const x = (event.clientX - rect.left) / rect.width
     const y = (event.clientY - rect.top) / rect.height
 
-    prevMousePosition = { ...targetMousePosition }
-    targetMousePosition = { x, y }
-    aberrationIntensity = 1
-    easeFactor = 0.02
+    prevMousePosition.current = { ...targetMousePosition.current }
+    targetMousePosition.current = { x, y }
+    aberrationIntensity.current = 1
+    easeFactor.current = 0.02
   }, [])
 
   const handleMouseEnter = useCallback((event) => {
@@ -105,55 +119,56 @@ function ImagePlane({ imgSrc }) {
     const x = (event.clientX - rect.left) / rect.width
     const y = (event.clientY - rect.top) / rect.height
 
-    mousePosition = { x, y }
-    targetMousePosition = { x, y }
-    easeFactor = 0.02
+    mousePosition.current = { x, y }
+    targetMousePosition.current = { x, y }
+    easeFactor.current = 0.02
   }, [])
 
   const handleMouseLeave = useCallback(() => {
-    easeFactor = 0.05
-    targetMousePosition = { ...prevMousePosition }
+    easeFactor.current = 0.05
+    targetMousePosition.current = { ...prevMousePosition.current }
   }, [])
 
   useEffect(() => {
-    const canvasContainers = document.querySelectorAll(
-      '.container-canvas__image-aberration'
-    )
+    const container = document.getElementById(`image-aberration-${id}`)
+    const canvas = container.querySelector('canvas')
 
-    canvasContainers.forEach((container) => {
-      const canvas = container.querySelector('canvas')
-
-      canvas.addEventListener('mousemove', handleMouseMove)
-      canvas.addEventListener('mouseenter', handleMouseEnter)
-      canvas.addEventListener('mouseleave', handleMouseLeave)
-    })
+    canvas.addEventListener('mousemove', handleMouseMove)
+    canvas.addEventListener('mouseenter', handleMouseEnter)
+    canvas.addEventListener('mouseleave', handleMouseLeave)
 
     return () => {
-      canvasContainers.forEach((container) => {
-        const canvas = container.querySelector('canvas')
-
-        canvas.addEventListener('mousemove', handleMouseMove)
-        canvas.addEventListener('mouseenter', handleMouseEnter)
-        canvas.addEventListener('mouseleave', handleMouseLeave)
-      })
+      canvas.removeEventListener('mousemove', handleMouseMove)
+      canvas.removeEventListener('mouseenter', handleMouseEnter)
+      canvas.removeEventListener('mouseleave', handleMouseLeave)
     }
-  }, [handleMouseEnter, handleMouseLeave, handleMouseMove])
+  }, [handleMouseEnter, handleMouseLeave, handleMouseMove, id])
 
   useFrame(() => {
     if (meshRef.current) {
       const uniforms = meshRef.current.material.uniforms
 
-      mousePosition.x += (targetMousePosition.x - mousePosition.x) * easeFactor
-      mousePosition.y += (targetMousePosition.y - mousePosition.y) * easeFactor
+      mousePosition.current.x +=
+        (targetMousePosition.current.x - mousePosition.current.x) *
+        easeFactor.current
+      mousePosition.current.y +=
+        (targetMousePosition.current.y - mousePosition.current.y) *
+        easeFactor.current
 
-      uniforms.u_mouse.value.set(mousePosition.x, 1.0 - mousePosition.y)
+      uniforms.u_mouse.value.set(
+        mousePosition.current.x,
+        1.0 - mousePosition.current.y
+      )
       uniforms.u_prevMouse.value.set(
-        prevMousePosition.x,
-        1.0 - prevMousePosition.y
+        prevMousePosition.current.x,
+        1.0 - prevMousePosition.current.y
       )
 
-      aberrationIntensity = Math.max(0.0, aberrationIntensity - 0.05)
-      uniforms.u_aberrationIntensity.value = aberrationIntensity
+      aberrationIntensity.current = Math.max(
+        0.0,
+        aberrationIntensity.current - 0.05
+      )
+      uniforms.u_aberrationIntensity.value = aberrationIntensity.current
     }
   })
 
@@ -184,11 +199,14 @@ function ImagePlane({ imgSrc }) {
   )
 }
 
-export default function ImageAberration({ imgSrc }) {
+export default function ImageAberration({ imgSrc, id, cover }) {
   return (
-    <CanvasContainer className='container-canvas__image-aberration'>
+    <CanvasContainer
+      id={`image-aberration-${id}`}
+      $cover={cover}
+    >
       <Canvas>
-        <ImagePlane imgSrc={imgSrc} />
+        <ImagePlane imgSrc={imgSrc} id={id} cover={cover} />
       </Canvas>
     </CanvasContainer>
   )
