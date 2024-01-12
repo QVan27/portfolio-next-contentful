@@ -71,7 +71,7 @@ const List = styled.ul`
         align-items: flex-end;
 
         h3 {
-          color: rgb(255, 255, 254, 0.2);
+          color: rgba(255, 255, 254, 0.2);
           font-size: 1.5rem;
           line-height: normal;
           letter-spacing: 0.075rem;
