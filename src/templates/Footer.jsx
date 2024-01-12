@@ -84,17 +84,15 @@ export default function Footer({ data }) {
 
         gsap.set(contactHide.current, { y: 5, rotateX: -90, opacity: 0 })
 
-        contact.current.addEventListener('mouseenter', (e) => {
-          e.preventDefault()
+        const tl = gsap.timeline({ paused: true })
 
-          gsap.to(contactShow.current, {
+        contact.current.addEventListener('mouseenter', () => {
+          tl.to(contactShow.current, {
             y: -5,
             opacity: 0,
             rotateX: 90,
             stagger: 0.02,
-          })
-
-          gsap.to(
+          }).to(
             contactHide.current,
             {
               y: 0,
@@ -104,29 +102,11 @@ export default function Footer({ data }) {
             },
             '<0.1'
           )
+
+          tl.play()
         })
 
-        contact.current.addEventListener('mouseleave', (e) => {
-          e.preventDefault()
-
-          gsap.to(contactHide.current, {
-            y: 5,
-            opacity: 0,
-            rotateX: -90,
-            stagger: 0.02,
-          })
-
-          gsap.to(
-            contactShow.current,
-            {
-              y: 0,
-              rotateX: 0,
-              opacity: 1,
-              stagger: 0.02,
-            },
-            '<0.1'
-          )
-        })
+        contact.current.addEventListener('mouseleave', () => tl.reverse())
       })
     }
   }, [])

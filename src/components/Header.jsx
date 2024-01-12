@@ -81,7 +81,6 @@ export default function Header() {
           charsRefs.current.push(chars)
           charsHideRefs.current.push(charsHide)
 
-          
           gsap.set(charsHide, { y: 5, rotateX: -90, opacity: 0 })
           
           const tl = gsap.timeline({ paused: true })
