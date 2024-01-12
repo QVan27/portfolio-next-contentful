@@ -92,6 +92,7 @@ export default function Footer({ data }) {
             opacity: 0,
             rotateX: 90,
             stagger: 0.02,
+            ease: 'sine.out',
           }).to(
             contactHide.current,
             {
@@ -99,6 +100,7 @@ export default function Footer({ data }) {
               rotateX: 0,
               opacity: 1,
               stagger: 0.02,
+              ease: 'sine.out',
             },
             '<0.1'
           )

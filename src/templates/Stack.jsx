@@ -68,7 +68,8 @@ const List = styled.ul`
       -webkit-background-clip: text;
       background-clip: text;
       background-size: 0%;
-      transition: background-size cubic-bezier(0.1, 0.5, 0.5, 1) 0.5s, color 0.5s ease-out;
+      transition: background-size cubic-bezier(0.1, 0.5, 0.5, 1) 0.5s,
+        color 0.5s ease-out;
 
       @media screen and (min-width: 1024px) {
         line-height: var(--font__titleStack);
@@ -128,22 +129,24 @@ export default function Stack({ data }) {
     const tl = gsap.timeline()
 
     item.addEventListener('mouseenter', () => {
+      console.log(chars)
       tl.clear()
-      tl.set(chars, { opacity: 0 })
+      tl.set(chars, { y: 5, rotateX: -90, opacity: 0 })
+
       gsap.to(titles, {
         x: 20,
         duration: 0.5,
         ease: 'sine.out',
       })
-      tl.fromTo(
-        chars,
-        { opacity: 0 },
-        {
-          opacity: 1,
-          stagger: 0.01,
-          ease: 'power2.out',
-        }
-      )
+
+      tl.to(chars, {
+        y: 0,
+        rotateX: 0,
+        opacity: 1,
+        stagger: 0.02,
+        ease: 'power4.out',
+      })
+
       tl.play()
     })
 
@@ -153,6 +156,7 @@ export default function Stack({ data }) {
         duration: 0.5,
         ease: 'sine.out',
       })
+
       tl.reverse()
     })
   }
