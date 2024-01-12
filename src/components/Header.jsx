@@ -47,7 +47,7 @@ const Container = styled.header`
               display: inline-flex;
               position: absolute;
               inset: 0;
-              color: var(--paragraph);
+              color: var(--main);
             }
 
             &.word {
@@ -81,47 +81,33 @@ export default function Header() {
           charsRefs.current.push(chars)
           charsHideRefs.current.push(charsHide)
 
-          gsap.set(charsHide, { yPercent: 100, opacity: 0 })
+          gsap.set(charsHide, { y: 5, rotateX: -90, opacity: 0 })
+          
+          const tl = gsap.timeline({ paused: true })
 
           link.addEventListener('mouseenter', () => {
-            gsap.to(chars, {
-              duration: 1,
-              yPercent: -100,
-              color: 'var(--main)',
+            tl.to(chars, {
+              y: -5,
               opacity: 0,
-              stagger: 0.05,
-              ease: 'power4.out',
-            })
+              rotateX: 90,
+              stagger: 0.02,
+              ease: 'sine.out',
+            }).to(
+              charsHide,
+              {
+                y: 0,
+                rotateX: 0,
+                opacity: 1,
+                stagger: 0.02,
+                ease: 'sine.out',
+              },
+              '<0.1'
+            )
 
-            gsap.to(charsHide, {
-              duration: 1,
-              yPercent: 0,
-              opacity: 1,
-              stagger: 0.05,
-              color: 'var(--main)',
-              ease: 'power4.out',
-            })
+            tl.play()
           })
 
-          link.addEventListener('mouseleave', () => {
-            gsap.to(chars, {
-              duration: 1,
-              yPercent: 0,
-              color: 'var(--paragraph)',
-              opacity: 1,
-              stagger: 0.05,
-              ease: 'power4.out',
-            })
-
-            gsap.to(charsHide, {
-              duration: 1,
-              yPercent: 100,
-              opacity: 0,
-              color: 'var(--paragraph)',
-              stagger: 0.05,
-              ease: 'power4.out',
-            })
-          })
+          link.addEventListener('mouseleave', () => tl.reverse())
         })
       })
     }

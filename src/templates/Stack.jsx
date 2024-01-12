@@ -59,20 +59,20 @@ const List = styled.ul`
     }
 
     h3 {
-      /* color: var(--main); */
       color: rgb(255, 255, 254, 0.2);
-
       font-size: var(--font__titleStack);
       font-style: normal;
       line-height: 5.625rem;
       letter-spacing: 0.24rem;
-      /* transition: color 0.5s ease-out; */
-
       background: linear-gradient(to right, var(--main), var(--main)) no-repeat;
       -webkit-background-clip: text;
       background-clip: text;
       background-size: 0%;
       transition: background-size cubic-bezier(0.1, 0.5, 0.5, 1) 0.5s, color 0.5s ease-out;
+
+      @media screen and (min-width: 1024px) {
+        line-height: var(--font__titleStack);
+      }
     }
 
     p {

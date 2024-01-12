@@ -59,18 +59,10 @@ const Content = styled.div`
     color: var(--main);
 
     span:nth-child(2) {
-      font-size: 4rem;
+      font-size: calc(4rem + (80 - 40) * ((100vw - 320px) / (1024 - 320)));
       text-transform: uppercase;
       letter-spacing: 0.32rem;
       line-height: 1;
-
-      @media screen and (min-width: 768px) {
-        font-size: 6rem;
-      }
-
-      @media screen and (min-width: 1024px) {
-        font-size: 8rem;
-      }
     }
   }
 `

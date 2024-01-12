@@ -15,34 +15,11 @@
   --z-loader: 150;
   --z-networks: 10;
 
-  --font__titleBorder: 4.75rem;
-  --font__titleStack: 3.5rem;
-  --font__title: 0.75rem;
-  --font__text: 1.5rem;
-}
-
-@media screen and (min-width: 768px) {
-  :root {
-    --font__titleBorder: 8rem;
-  }
-}
-
-@media screen and (min-width: 1024px) {
-  :root {
-    --font__titleStack: 6rem;
-  }
-}
-
-@media screen and (min-width: 1280px) {
-  :root {
-    --font__titleBorder: 10rem;
-  }
-}
-
-@media screen and (min-width: 1536px) {
-  :root {
-    --font__titleBorder: 12rem;
-  }
+  --font__titleBorder: calc(4.75rem + (120 - 47.5) * ((100vw - 320px) / (1440 - 320)));
+  --font__titleStack: calc(3.5rem + (96 - 35) * ((100vw - 320px) / (1440 - 320)));
+  --font__title: calc(0.75rem + (10 - 7.5) * ((100vw - 320px) / (1440 - 320)));
+  --font__text: calc(1.5rem + (18 - 15) * ((100vw - 320px) / (1440 - 320)));
+  --font__titleWork: calc(1.8rem + (21 - 18) * ((100vw - 320px) / (1440 - 320)));
 }
 
 @media (prefers-color-scheme: dark) {

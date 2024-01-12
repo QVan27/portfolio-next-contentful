@@ -24,10 +24,19 @@ const Container = styled.footer`
   .socials a {
     font-size: 2.25rem;
     letter-spacing: 0.09rem;
-    transition: all 0.3s ease-out;
+    color: rgba(255, 255, 254, 0.2);
 
-    .char {
-      transition: all 0.3 ease-out;
+    @media screen and (hover: hover) {
+      color: rgba(255, 255, 254, 0.3);
+      background: linear-gradient(to right, var(--main), var(--main)) no-repeat;
+      -webkit-background-clip: text;
+      background-clip: text;
+      background-size: 0%;
+      transition: background-size cubic-bezier(0.1, 0.5, 0.5, 1) 0.5s;
+
+      &:hover {
+        background-size: 100%;
+      }
     }
   }
 
@@ -35,30 +44,22 @@ const Container = styled.footer`
     position: relative;
     overflow: hidden;
     margin-top: 1rem;
-    color: var(--main);
     font-size: 0.875rem;
-    line-height: normal;
     letter-spacing: 0.035rem;
 
     @media screen and (min-width: 640px) {
       margin-top: 0;
     }
 
-    @media screen and (hover: hover) {
-      color: var(--paragraph);
+    .show,
+    .hide {
+      display: block;
     }
 
-    span {
-      &.hide {
-        display: inline-flex;
-        position: absolute;
-        inset: 0;
-      }
-
-      &.word {
-        display: inline-flex;
-        align-items: center;
-      }
+    .hide {
+      position: absolute;
+      bottom: 0;
+      color: var(--main);
     }
   }
 `
@@ -68,95 +69,44 @@ export default function Footer({ data }) {
   const charsRefs = useRef([])
 
   const contact = useRef(null)
-  const contactWordRef = useRef([])
-  const contactWordHideRef = useRef([])
+  const contactShow = useRef([])
+  const contactHide = useRef([])
 
   useEffect(() => {
     if (socials && charsRefs.current.length === 0) {
       import('splitting').then(({ default: Splitting }) => {
         Splitting()
+        const showChars = contact.current.querySelectorAll('.show .char')
+        const hideChars = contact.current.querySelectorAll('.hide .char')
 
-        const links = socials.current.querySelectorAll('a')
+        contactShow.current.push(showChars)
+        contactHide.current.push(hideChars)
 
-        links.forEach((link) => {
-          const chars = link.querySelectorAll('.char')
+        gsap.set(contactHide.current, { y: 5, rotateX: -90, opacity: 0 })
 
-          charsRefs.current.push(chars)
-
-          link.addEventListener('mouseenter', () => {
-            gsap.to(chars, {
-              color: 'var(--main)',
-              stagger: 0.03,
-              duration: 0.7,
-            })
-            gsap.to(
-              link,
-              {
-                translateX: '10px',
-                duration: 1,
-              },
-              0
-            )
-          })
-
-          link.addEventListener('mouseleave', () => {
-            gsap.to(chars, {
-              color: 'var(--paragraph)',
-              stagger: 0.03,
-              duration: 0.7,
-            })
-            gsap.to(
-              link,
-              {
-                translateX: 0,
-                duration: 1,
-              },
-              0
-            )
-          })
-        })
-
-        const word = contact.current.querySelectorAll('.show .word')
-        const wordHide = contact.current.querySelectorAll('.hide .word')
-
-        contactWordRef.current.push(word)
-        contactWordHideRef.current.push(wordHide)
-
-        gsap.set(wordHide, { yPercent: 100, opacity: 0 })
+        const tl = gsap.timeline({ paused: true })
 
         contact.current.addEventListener('mouseenter', () => {
-          gsap.to(word, {
-            duration: 0.5,
-            yPercent: -100,
+          tl.to(contactShow.current, {
+            y: -5,
             opacity: 0,
-            ease: 'power4.out',
-          })
+            rotateX: 90,
+            stagger: 0.02,
+          }).to(
+            contactHide.current,
+            {
+              y: 0,
+              rotateX: 0,
+              opacity: 1,
+              stagger: 0.02,
+            },
+            '<0.1'
+          )
 
-          gsap.to(wordHide, {
-            duration: 0.5,
-            color: 'var(--main)',
-            yPercent: 0,
-            opacity: 1,
-            ease: 'power4.out',
-          })
+          tl.play()
         })
 
-        contact.current.addEventListener('mouseleave', () => {
-          gsap.to(word, {
-            duration: 0.5,
-            yPercent: 0,
-            opacity: 1,
-            ease: 'power4.out',
-          })
-
-          gsap.to(wordHide, {
-            duration: 0.5,
-            yPercent: 100,
-            color: 'var(--paragraph)',
-            opacity: 0,
-            ease: 'power4.out',
-          })
-        })
+        contact.current.addEventListener('mouseleave', () => tl.reverse())
       })
     }
   }, [])
@@ -174,7 +124,6 @@ export default function Footer({ data }) {
                 className={`${maitree.className} flex flex-col items-start socials`}
               >
                 <Link
-                  data-splitting='chars'
                   aria-label={data.linkedinText}
                   href={data.linkedinLink}
                   target='_blank'
@@ -182,7 +131,6 @@ export default function Footer({ data }) {
                   {data.linkedinText}
                 </Link>
                 <Link
-                  data-splitting='chars'
                   aria-label={data.githubText}
                   href={data.githubLink}
                   target='_blank'
@@ -196,10 +144,10 @@ export default function Footer({ data }) {
                 aria-label={data.email}
                 href={`mailto:${data.email}`}
               >
-                <span className='show' data-splitting='chars'>
+                <span data-splitting='chars' className='show'>
                   {data.email}
                 </span>
-                <span className='hide' data-splitting='chars'>
+                <span data-splitting='chars' className='hide'>
                   {data.email}
                 </span>
               </Link>
