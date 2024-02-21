@@ -47,7 +47,7 @@ export const getStaticProps = async () => {
       dataSocialNetworks: socialNetworks.items,
       dataContact: contact.items,
       dataFooter: footer.items,
-      revalidate: 70
-    }
+    },
+    next: { revalidate: 10 }
   }
 }
