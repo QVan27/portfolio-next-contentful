@@ -12,7 +12,7 @@ export default async function handler(req, res) {
   try {
     // Revalidate this page only when this webhook is called
     // And yes the way Contentful sends the slug is messy :(
-    await res.unstable_revalidate(body?.fields?.slug?.['en-US']);
+    await res.unstable_revalidate(body?.sys?.contentType?.sys?.id);
     return res.json({ revalidated: true });
   } catch (err) {
     // If there was an error, Next.js will continue
