@@ -27,7 +27,7 @@ export default function HeadData() {
       <meta property='og:title' content={title} />
       <meta property='og:type' content='website' />
       <meta property='og:url' content={url} />
-      <meta property='og:image' content={'/icons/share.png'} />
+      <meta property='og:image' content={'/favicons/icons/share.png'} />
       <meta property='og:site_name' content={title} />
       <meta property='og:description' content={description} />
       {/* Twitter Summary card */}
@@ -35,85 +35,85 @@ export default function HeadData() {
       <meta property='twitter:url' content={url} />
       <meta property='twitter:title' content={title} />
       <meta property='twitter:description' content={description} />
-      <meta property='twitter:image' content={'/icons/share.png'} />
+      <meta property='twitter:image' content={'/favicons/icons/share.png'} />
       {/* Favicons */}
-      <link rel='shortcut icon' href='/icons/favicon.ico' />
+      <link rel='shortcut icon' href='/favicons/icons/favicon.ico' />
       <link
         rel='apple-touch-icon'
         sizes='57x57'
-        href='/icons/apple-icon-57x57.png'
+        href='/favicons/icons/apple-icon-57x57.png'
       />
       <link
         rel='apple-touch-icon'
         sizes='60x60'
-        href='/icons/apple-icon-60x60.png'
+        href='/favicons/icons/apple-icon-60x60.png'
       />
       <link
         rel='apple-touch-icon'
         sizes='72x72'
-        href='/icons/apple-icon-72x72.png'
+        href='/favicons/icons/apple-icon-72x72.png'
       />
       <link
         rel='apple-touch-icon'
         sizes='76x76'
-        href='/icons/apple-icon-76x76.png'
+        href='/favicons/icons/apple-icon-76x76.png'
       />
       <link
         rel='apple-touch-icon'
         sizes='114x114'
-        href='/icons/apple-icon-114x114.png'
+        href='/favicons/icons/apple-icon-114x114.png'
       />
       <link
         rel='apple-touch-icon'
         sizes='120x120'
-        href='/icons/apple-icon-120x120.png'
+        href='/favicons/icons/apple-icon-120x120.png'
       />
       <link
         rel='apple-touch-icon'
         sizes='144x144'
-        href='/icons/apple-icon-144x144.png'
+        href='/favicons/icons/apple-icon-144x144.png'
       />
       <link
         rel='apple-touch-icon'
         sizes='152x152'
-        href='/icons/apple-icon-152x152.png'
+        href='/favicons/icons/apple-icon-152x152.png'
       />
       <link
         rel='apple-touch-icon'
         sizes='180x180'
-        href='/icons/apple-icon-180x180.png'
+        href='/favicons/icons/apple-icon-180x180.png'
       />
 
       <link
         rel='icon'
         type='image/png'
         sizes='192x192'
-        href='/icons/android-icon-192x192.png'
+        href='/favicons/icons/android-icon-192x192.png'
       />
       <link
         rel='icon'
         type='image/png'
         sizes='32x32'
-        href='/icons/favicon-32x32.png'
+        href='/favicons/icons/favicon-32x32.png'
       />
       <link
         rel='icon'
         type='image/png'
         sizes='96x96'
-        href='/icons/favicon-96x96.png'
+        href='/favicons/icons/favicon-96x96.png'
       />
       <link
         rel='icon'
         type='image/png'
         sizes='16x16'
-        href='/icons/favicon-16x16.png'
+        href='/favicons/icons/favicon-16x16.png'
       />
 
       <link rel='manifest' href='/manifest.json' />
       <meta name='msapplication-TileColor' content='#16161A' />
       <meta
         name='msapplication-TileImage'
-        content='/icons/ms-icon-144x144.png'
+        content='/favicons/icons/ms-icon-144x144.png'
       />
       {/* Meta Tags for HTML pages on Mobile */}
       {/* <meta name="format-detection" content="telephone=yes"/>
