@@ -86,7 +86,7 @@ export default function Footer({ data }) {
 
         const tl = gsap.timeline({ paused: true })
 
-        contact.current.addEventListener('mouseenter', () => {
+        contact.current.addEventListener('mouseover', () => {
           tl.to(contactShow.current, {
             y: -5,
             opacity: 0,
@@ -101,6 +101,7 @@ export default function Footer({ data }) {
               opacity: 1,
               stagger: 0.02,
               ease: 'sine.out',
+              onComplete: () => tl.pause()
             },
             '<0.1'
           )
@@ -108,7 +109,9 @@ export default function Footer({ data }) {
           tl.play()
         })
 
-        contact.current.addEventListener('mouseleave', () => tl.reverse())
+        contact.current.addEventListener('mouseout', () => {
+          tl.reverse()
+        })
       })
     }
   }, [])

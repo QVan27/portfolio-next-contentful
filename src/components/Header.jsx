@@ -82,7 +82,7 @@ export default function Header() {
           charsHideRefs.current.push(charsHide)
 
           gsap.set(charsHide, { y: 5, rotateX: -90, opacity: 0 })
-          
+
           const tl = gsap.timeline({ paused: true })
 
           link.addEventListener('mouseenter', () => {
@@ -100,6 +100,7 @@ export default function Header() {
                 opacity: 1,
                 stagger: 0.02,
                 ease: 'sine.out',
+                onComplete: () => tl.pause()
               },
               '<0.1'
             )
@@ -141,7 +142,7 @@ export default function Header() {
           className={`${maitree.className} col-end-12 col-span-3 text-right xl:col-end-23 xl:col-span-2`}
         >
           <ul>
-            {['About', 'Skills', 'Contact'].map((label) => (
+            {['About', 'Projects', 'Contact'].map((label) => (
               <li key={label}>
                 <Link aria-label={label} href={`#${label.toLowerCase()}`}>
                   <span className='show' data-splitting='chars'>
