@@ -129,7 +129,6 @@ export default function Stack({ data }) {
     const tl = gsap.timeline()
 
     item.addEventListener('mouseenter', () => {
-      console.log(chars)
       tl.clear()
       tl.set(chars, { y: 5, rotateX: -90, opacity: 0 })
 
