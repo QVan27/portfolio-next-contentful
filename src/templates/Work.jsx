@@ -255,7 +255,7 @@ export default function Work({ data, items }) {
                         href={fields.link}
                         className={`${nunito_sans.className} seeMore`}
                       >
-                        see more
+                        explore
                       </Link>
                     </div>
                     {fields.digitalCover && (
