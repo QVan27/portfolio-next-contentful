@@ -43,16 +43,16 @@ const List = styled.ul`
       margin-bottom: 1.875rem;
       overflow: hidden;
       border: 1px solid var(--paragraph);
-      height: 10.5rem;
+      height: 11.5rem;
 
       @media screen and (min-width: 768px) {
         width: 100%;
-        height: 21rem;
+        height: 22rem;
       }
 
       @media screen and (min-width: 1024px) {
         width: 100%;
-        height: 28.5rem;
+        height: 29rem;
       }
 
       @media screen and (min-width: 1280px) {
@@ -104,7 +104,7 @@ const List = styled.ul`
       flex-direction: column;
       gap: 0.5rem;
       margin-top: 1.25rem;
-
+      
       @media screen and (min-width: 1024px) {
         margin-top: 0;
         width: 20rem;
