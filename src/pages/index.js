@@ -48,6 +48,6 @@ export const getStaticProps = async () => {
       dataContact: contact.items,
       dataFooter: footer.items,
     },
-    revalidate: 10
+    revalidate: 3600
   }
 }
