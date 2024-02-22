@@ -16,6 +16,7 @@
     "@react-three/fiber": "^8.15.11",
     "@studio-freight/react-lenis": "^0.0.36",
     "@studio-freight/tempus": "^0.0.38",
+    "@zeit/next-source-maps": "^0.0.3",
     "atropos": "^2.0.2",
     "contentful": "^10.6.3",
     "gsap": "^3.12.2",
