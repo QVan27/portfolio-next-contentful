@@ -100,7 +100,7 @@ export default function Header() {
                 opacity: 1,
                 stagger: 0.02,
                 ease: 'sine.out',
-                onComplete: () => tl.pause()
+                onComplete: () => tl.pause(),
               },
               '<0.1'
             )
@@ -129,12 +129,11 @@ export default function Header() {
       <div className='grid grid-cols-12 xl:grid-cols-24 justify-between items-center py-2 gap-x-2.5'>
         <Image
           ref={logoRef}
-          priority={true}
           loader={nextImageLoader}
           alt="Art'vannah Logo"
           src={Logo}
           width={210}
-          height={48}
+          height='auto'
           className='flareBigger col-start-2 col-end-8 xl:col-start-3 xl:col-end-7'
         />
         <nav
