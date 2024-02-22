@@ -3,11 +3,11 @@ import Banner from '@/templates/Banner'
 import About from '@/templates/About'
 import Stack from '@/templates/Stack'
 import Work from '@/templates/Work'
-import HeadData from '@/components/HeadData';
-import SocialNetworks from '@/components/SocialNetworks';
+import HeadData from '@/components/HeadData'
+import SocialNetworks from '@/components/SocialNetworks'
 import Contact from '@/templates/Contact'
-import Header from '@/components/Header';
-import Footer from '@/templates/Footer';
+import Header from '@/components/Header'
+import Footer from '@/templates/Footer'
 
 export default function Home({ dataBanner, dataAbout, dataStack, dataWork, dataWebsite, dataSocialNetworks, dataContact, dataFooter }) {
   return (
