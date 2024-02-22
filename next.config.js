@@ -2,6 +2,7 @@ const {
   PHASE_DEVELOPMENT_SERVER,
   PHASE_PRODUCTION_BUILD,
 } = require("next/constants");
+const withSourceMaps = require('@zeit/next-source-maps')
 
 /** @type {import("next").NextConfig} */
 const nextConfig = {
@@ -13,6 +14,13 @@ const nextConfig = {
   compiler: {
     styledComponents: true,
   },
+  webpack(config, options) {
+    if (!options.dev) {
+      config.devtool = 'source-map'
+    }
+
+    return config
+  }
 };
 
 module.exports = (phase) => {
@@ -22,7 +30,7 @@ module.exports = (phase) => {
       disable: phase === PHASE_DEVELOPMENT_SERVER,
       register: true,
     });
-    return withPWA(nextConfig);
+    return withSourceMaps(withPWA(nextConfig));
   }
-  return nextConfig;
+  return withSourceMaps(nextConfig);
 };
