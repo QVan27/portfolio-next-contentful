@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from 'react'
 import { client } from '@/lib/contentful'
 import Header from '@/components/Header'
 import Footer from '@/templates/Footer'
+import HeadData from '@/components/HeadData'
 import Link from 'next/link'
 import { FaHome } from 'react-icons/fa'
 import { Anton, Nunito_Sans } from 'next/font/google'
@@ -170,6 +171,7 @@ export default function Custom404({ footer }) {
 
   return (
     <>
+      <HeadData />
       <Header />
       <main>
         <Section>
