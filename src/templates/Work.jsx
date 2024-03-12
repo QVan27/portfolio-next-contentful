@@ -73,7 +73,7 @@ const List = styled.ul`
         h3 {
           color: rgba(255, 255, 254, 0.2);
           font-size: var(--font__titleWork);
-          line-height: var(--font__titleWork);
+          line-height: calc(var(--font__titleWork) + 1rem);
           letter-spacing: 0.075rem;
           text-transform: uppercase;
           background: linear-gradient(to right, var(--main), var(--main))
@@ -91,7 +91,7 @@ const List = styled.ul`
 
         a {
           letter-spacing: 0.075rem;
-          margin-bottom: -0.2rem;
+          margin-bottom: 0.35rem;
           white-space: nowrap;
           font-size: calc(10px + (12 - 10) * ((100vw - 320px) / (1440 - 320)));
           text-transform: uppercase;
